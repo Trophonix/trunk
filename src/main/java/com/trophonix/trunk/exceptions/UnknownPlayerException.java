@@ -1,0 +1,18 @@
+package com.trophonix.trunk.exceptions;
+
+/**
+ * Created by Lucas on 4/13/17.
+ */
+public class UnknownPlayerException extends Exception {
+
+    private String name;
+
+    public UnknownPlayerException(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+}

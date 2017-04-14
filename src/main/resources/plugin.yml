@@ -1,0 +1,5 @@
+name: Trunk
+version: 1.0
+author: Trophonix
+main: com.trophonix.trunk.Trunk
+softdepend: [Vault]
