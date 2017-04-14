@@ -17,7 +17,7 @@ import java.util.UUID;
  */
 public class VaultChatWrapper extends Chat {
 
-    private TrunkChat wrapped;
+    private final TrunkChat wrapped;
 
     public VaultChatWrapper(Permission perms, TrunkChat wrapped) {
         super(perms);
@@ -113,20 +113,14 @@ public class VaultChatWrapper extends Chat {
     public boolean playerInGroup(String world, String player, String group) {
         UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return false;
-        }
-        return wrapped.playerInGroup(world, uniqueId, group);
+        return uniqueId != null && wrapped.playerInGroup(world, uniqueId, group);
     }
 
     @Override
     public boolean playerInGroup(World world, String player, String group) {
         UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return false;
-        }
-        return wrapped.playerInGroup(world, uniqueId, group);
+        return uniqueId != null && wrapped.playerInGroup(world, uniqueId, group);
     }
 
     @Override
@@ -333,10 +327,7 @@ public class VaultChatWrapper extends Chat {
     public boolean getPlayerInfoBoolean(String world, String player, String node, boolean defaultValue) {
         UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return false;
-        }
-        return wrapped.getBooleanPlayerOption(world, uniqueId, node, defaultValue);
+        return uniqueId != null && wrapped.getBooleanPlayerOption(world, uniqueId, node, defaultValue);
     }
 
     @Override

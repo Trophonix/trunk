@@ -13,7 +13,7 @@ import java.util.UUID;
  */
 public class TrunkVaultChatWrapper extends TrunkChat {
 
-    private Chat wrapped;
+    private final Chat wrapped;
 
     public TrunkVaultChatWrapper(Plugin plugin, Chat chat) {
         super(plugin);

@@ -27,11 +27,12 @@ import java.util.Set;
 /**
  * Created by Lucas on 4/12/17.
  */
+@SuppressWarnings("WeakerAccess")
 public class Trunk extends JavaPlugin implements Listener {
 
     private static Trunk instance;
 
-    private static Set<TrunkHook> registeredHooks = new HashSet<>();
+    private static final Set<TrunkHook> registeredHooks = new HashSet<>();
 
     @Override
     public void onEnable() {
@@ -144,8 +145,7 @@ public class Trunk extends JavaPlugin implements Listener {
     }
 
     public static void unregisterAll(Plugin plugin) {
-        for (Iterator<TrunkHook> iterator = registeredHooks.iterator(); iterator.hasNext(); )
-            unregister(iterator.next());
+        for (TrunkHook registeredHook : registeredHooks) unregister(registeredHook);
     }
 
     public static <T extends TrunkHook> T getHook(Class<? extends TrunkHook> clazz) {

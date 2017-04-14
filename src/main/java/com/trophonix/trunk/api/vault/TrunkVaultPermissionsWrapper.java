@@ -15,7 +15,7 @@ import java.util.UUID;
  */
 public class TrunkVaultPermissionsWrapper extends TrunkPermissions {
 
-    private Permission wrapped;
+    private final Permission wrapped;
 
     public TrunkVaultPermissionsWrapper(Plugin plugin, Permission wrapped) {
         super(plugin);

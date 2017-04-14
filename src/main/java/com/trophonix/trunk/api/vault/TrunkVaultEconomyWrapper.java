@@ -13,7 +13,7 @@ import java.util.UUID;
  */
 public class TrunkVaultEconomyWrapper extends TrunkEconomy {
 
-    private Economy wrapped;
+    private final Economy wrapped;
 
     public TrunkVaultEconomyWrapper(Plugin plugin, Economy wrapped) {
         super(plugin);

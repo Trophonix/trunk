@@ -12,10 +12,11 @@ import java.util.UUID;
 /**
  * Created by Lucas on 4/12/17.
  */
+@SuppressWarnings("WeakerAccess")
 public abstract class TrunkChat implements TrunkHook {
 
-    private Plugin plugin;
-    private TrunkPermissions perms;
+    private final Plugin plugin;
+    private final TrunkPermissions perms;
 
     public TrunkChat(Plugin plugin) {
         this.plugin = plugin;

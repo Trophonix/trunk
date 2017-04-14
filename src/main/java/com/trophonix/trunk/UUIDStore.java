@@ -11,9 +11,10 @@ import java.util.UUID;
 /**
  * Created by Lucas on 4/13/17.
  */
+@SuppressWarnings("WeakerAccess")
 public class UUIDStore {
 
-    private static Set<Profile> profiles = new HashSet<>();
+    private static final Set<Profile> profiles = new HashSet<>();
 
     public static UUID getUniqueId(String name) {
         for (Profile p : profiles) {

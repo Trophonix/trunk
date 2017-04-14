@@ -17,7 +17,7 @@ import java.util.UUID;
  */
 public class VaultPermissionWrapper extends Permission {
 
-    private TrunkPermissions wrapped;
+    private final TrunkPermissions wrapped;
 
     public VaultPermissionWrapper(TrunkPermissions wrapped) {
         this.wrapped = wrapped;
@@ -27,20 +27,14 @@ public class VaultPermissionWrapper extends Permission {
     public boolean has(String world, String player, String permission) {
         UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return false;
-        }
-        return wrapped.has(world, uniqueId, permission);
+        return uniqueId != null && wrapped.has(world, uniqueId, permission);
     }
 
     @Override
     public boolean has(World world, String player, String permission) {
         UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return false;
-        }
-        return wrapped.has(world, uniqueId, permission);
+        return uniqueId != null && wrapped.has(world, uniqueId, permission);
     }
 
     @Override
@@ -57,10 +51,7 @@ public class VaultPermissionWrapper extends Permission {
     public boolean playerHas(World world, String player, String permission) {
         UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return false;
-        }
-        return wrapped.playerHas(world, uniqueId, permission);
+        return uniqueId != null && wrapped.playerHas(world, uniqueId, permission);
     }
 
     @Override
@@ -77,10 +68,7 @@ public class VaultPermissionWrapper extends Permission {
     public boolean playerAdd(World world, String player, String permission) {
         UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return false;
-        }
-        return wrapped.playerAdd(world, uniqueId, permission);
+        return uniqueId != null && wrapped.playerAdd(world, uniqueId, permission);
     }
 
     @Override
@@ -97,10 +85,7 @@ public class VaultPermissionWrapper extends Permission {
     public boolean playerAddTransient(String player, String permission) throws UnsupportedOperationException {
         UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return false;
-        }
-        return wrapped.playerAddTransient(uniqueId, permission);
+        return uniqueId != null && wrapped.playerAddTransient(uniqueId, permission);
     }
 
     @Override
@@ -127,20 +112,14 @@ public class VaultPermissionWrapper extends Permission {
     public boolean playerAddTransient(String worldName, String player, String permission) {
         UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return false;
-        }
-        return wrapped.playerAddTransient(worldName, uniqueId, permission);
+        return uniqueId != null && wrapped.playerAddTransient(worldName, uniqueId, permission);
     }
 
     @Override
     public boolean playerRemoveTransient(String worldName, String player, String permission) {
         UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return false;
-        }
-        return wrapped.playerRemoveTransient(worldName, uniqueId, permission);
+        return uniqueId != null && wrapped.playerRemoveTransient(worldName, uniqueId, permission);
     }
 
     @Override
@@ -162,10 +141,7 @@ public class VaultPermissionWrapper extends Permission {
     public boolean playerRemove(World world, String player, String permission) {
         UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return false;
-        }
-        return wrapped.playerRemove(world, uniqueId, permission);
+        return uniqueId != null && wrapped.playerRemove(world, uniqueId, permission);
     }
 
     @Override
@@ -177,10 +153,7 @@ public class VaultPermissionWrapper extends Permission {
     public boolean playerRemoveTransient(String player, String permission) {
         UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return false;
-        }
-        return wrapped.playerRemoveTransient(uniqueId, permission);
+        return uniqueId != null && wrapped.playerRemoveTransient(uniqueId, permission);
     }
 
     @Override
@@ -212,10 +185,7 @@ public class VaultPermissionWrapper extends Permission {
     public boolean playerInGroup(World world, String player, String group) {
         UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return false;
-        }
-        return wrapped.playerInGroup(world, uniqueId, group);
+        return uniqueId != null && wrapped.playerInGroup(world, uniqueId, group);
     }
 
     @Override
@@ -232,10 +202,7 @@ public class VaultPermissionWrapper extends Permission {
     public boolean playerAddGroup(World world, String player, String group) {
         UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return false;
-        }
-        return wrapped.playerAddGroup(world, uniqueId, group);
+        return uniqueId != null && wrapped.playerAddGroup(world, uniqueId, group);
     }
 
     @Override
@@ -252,10 +219,7 @@ public class VaultPermissionWrapper extends Permission {
     public boolean playerRemoveGroup(World world, String player, String group) {
         UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return false;
-        }
-        return wrapped.playerRemoveGroup(world, uniqueId, group);
+        return uniqueId != null && wrapped.playerRemoveGroup(world, uniqueId, group);
     }
 
     @Override
@@ -327,30 +291,21 @@ public class VaultPermissionWrapper extends Permission {
     public boolean playerHas(String world, String player, String permission) {
         UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return false;
-        }
-        return wrapped.playerHas(world, uniqueId, permission);
+        return uniqueId != null && wrapped.playerHas(world, uniqueId, permission);
     }
 
     @Override
     public boolean playerAdd(String world, String player, String permission) {
         UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return false;
-        }
-        return wrapped.playerAdd(world, uniqueId, permission);
+        return uniqueId != null && wrapped.playerAdd(world, uniqueId, permission);
     }
 
     @Override
     public boolean playerRemove(String world, String player, String permission) {
         UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return false;
-        }
-        return wrapped.playerRemove(world, uniqueId, permission);
+        return uniqueId != null && wrapped.playerRemove(world, uniqueId, permission);
     }
 
     @Override
@@ -372,30 +327,21 @@ public class VaultPermissionWrapper extends Permission {
     public boolean playerInGroup(String world, String player, String group) {
         UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return false;
-        }
-        return wrapped.playerAddGroup(world, uniqueId, group);
+        return uniqueId != null && wrapped.playerAddGroup(world, uniqueId, group);
     }
 
     @Override
     public boolean playerAddGroup(String world, String player, String group) {
         UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return false;
-        }
-        return wrapped.playerAddGroup(world, uniqueId, group);
+        return uniqueId != null && wrapped.playerAddGroup(world, uniqueId, group);
     }
 
     @Override
     public boolean playerRemoveGroup(String world, String player, String group) {
         UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return false;
-        }
-        return wrapped.playerRemoveGroup(world, uniqueId, group);
+        return uniqueId != null && wrapped.playerRemoveGroup(world, uniqueId, group);
     }
 
     @Override

@@ -5,7 +5,7 @@ package com.trophonix.trunk.exceptions;
  */
 public class HookRegisterException extends Exception {
 
-    private String message;
+    private final String message;
 
     public HookRegisterException(String message) {
         this.message = message;

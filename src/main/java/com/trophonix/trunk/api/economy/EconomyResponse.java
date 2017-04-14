@@ -25,7 +25,7 @@ public class EconomyResponse {
         }
     }
 
-    private Result result;
+    private final Result result;
     private String message;
     private Number previousBalance;
     private Number newBalance;

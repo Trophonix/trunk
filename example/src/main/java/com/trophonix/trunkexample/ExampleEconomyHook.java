@@ -11,9 +11,9 @@ import java.util.UUID;
  */
 public class ExampleEconomyHook extends TrunkEconomy {
 
-    private DecimalFormat decimalFormat = new DecimalFormat("0.##");
+    private final DecimalFormat decimalFormat = new DecimalFormat("0.##");
 
-    private TrunkExample main;
+    private final TrunkExample main;
 
     public ExampleEconomyHook(TrunkExample main) {
         super(main);

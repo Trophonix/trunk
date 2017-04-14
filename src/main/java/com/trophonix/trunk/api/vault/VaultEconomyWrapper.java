@@ -17,7 +17,7 @@ import java.util.UUID;
  */
 public class VaultEconomyWrapper implements Economy {
 
-    private TrunkEconomy wrapped;
+    private final TrunkEconomy wrapped;
 
     public VaultEconomyWrapper(TrunkEconomy wrapped) {
         this.wrapped = wrapped;
@@ -62,10 +62,7 @@ public class VaultEconomyWrapper implements Economy {
     public boolean hasAccount(String player) {
         UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return false;
-        }
-        return wrapped.hasAccount(uniqueId);
+        return uniqueId != null && wrapped.hasAccount(uniqueId);
     }
 
     @Override
@@ -77,10 +74,7 @@ public class VaultEconomyWrapper implements Economy {
     public boolean hasAccount(String player, String world) {
         UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return false;
-        }
-        return wrapped.hasAccount(uniqueId, world);
+        return uniqueId != null && wrapped.hasAccount(uniqueId, world);
     }
 
     @Override
@@ -122,10 +116,7 @@ public class VaultEconomyWrapper implements Economy {
     public boolean has(String player, double amount) {
         UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return false;
-        }
-        return wrapped.has(uniqueId, amount);
+        return uniqueId != null && wrapped.has(uniqueId, amount);
     }
 
     @Override
@@ -137,10 +128,7 @@ public class VaultEconomyWrapper implements Economy {
     public boolean has(String player, String world, double amount) {
         UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return false;
-        }
-        return wrapped.has(uniqueId, amount, world);
+        return uniqueId != null && wrapped.has(uniqueId, amount, world);
     }
 
     @Override
@@ -287,10 +275,7 @@ public class VaultEconomyWrapper implements Economy {
     public boolean createPlayerAccount(String player) {
         UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return false;
-        }
-        return wrapped.hasAccount(uniqueId);
+        return uniqueId != null && wrapped.hasAccount(uniqueId);
     }
 
     @Override
@@ -302,10 +287,7 @@ public class VaultEconomyWrapper implements Economy {
     public boolean createPlayerAccount(String player, String world) {
         UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return false;
-        }
-        return wrapped.createAccount(uniqueId, world).getResult().equals(com.trophonix.trunk.api.economy.EconomyResponse.Result.SUCCESS);
+        return uniqueId != null && wrapped.createAccount(uniqueId, world).getResult().equals(com.trophonix.trunk.api.economy.EconomyResponse.Result.SUCCESS);
     }
 
     @Override

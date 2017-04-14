@@ -10,9 +10,10 @@ import java.util.UUID;
 /**
  * Created by Lucas on 4/12/17.
  */
+@SuppressWarnings("WeakerAccess")
 public abstract class TrunkEconomy implements TrunkHook {
 
-    private Plugin plugin;
+    private final Plugin plugin;
 
     public TrunkEconomy(Plugin plugin) {
         this.plugin = plugin;
