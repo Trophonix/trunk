@@ -28,6 +28,11 @@ public class TrunkExample extends JavaPlugin {
     }
 
     @Override
+    public void onDisable() {
+        saveConfig();
+    }
+
+    @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
         if (sender instanceof Player) { // Check if sender is player for commands that require player object
