@@ -44,11 +44,17 @@ public class TrunkExample extends JavaPlugin {
             } else if (command.getName().equals("pay") && args.length >= 2) {
                 try {
                     double amount = Double.parseDouble(args[1]);
-                    EconomyResponse response = economy.deposit(args[0], amount);
-                    if (response.getResult().equals(EconomyResponse.Result.SUCCESS)) {
-                        player.sendMessage(ChatColor.GREEN + "Sent " + ChatColor.DARK_GREEN + economy.currencySymbol() + economy.format(amount) + ChatColor.GREEN + " to " + args[0]);
+                    EconomyResponse withdraw = economy.withdraw(player, amount);
+                    if (withdraw.getResult().equals(EconomyResponse.Result.SUCCESS)) {
+                        EconomyResponse deposit = economy.deposit(args[0], amount);
+                        if (deposit.getResult().equals(EconomyResponse.Result.SUCCESS)) {
+                            player.sendMessage(ChatColor.GREEN + "Sent " + ChatColor.DARK_GREEN + economy.currencySymbol() + economy.format(amount) + ChatColor.GREEN + " to " + args[0]);
+                        } else {
+                            player.sendMessage(ChatColor.RED + (deposit.hasMessage() ? deposit.getMessage() : "Something went wrong!"));
+                            economy.deposit(player, amount);
+                        }
                     } else {
-                        player.sendMessage(ChatColor.RED + (response.hasMessage() ? response.getMessage() : "Something went wrong!"));
+                        player.sendMessage(ChatColor.RED + (withdraw.hasMessage() ? withdraw.getMessage() : "Something went wrong!"));
                     }
                 } catch (NumberFormatException ex) {
                     player.sendMessage(ChatColor.RED + "Not a number: " + args[1]);
