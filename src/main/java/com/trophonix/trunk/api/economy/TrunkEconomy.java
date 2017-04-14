@@ -142,7 +142,7 @@ public abstract class TrunkEconomy implements TrunkHook {
         return getBalance(player.getUniqueId());
     }
 
-    public Number getBalance(String name) { return getBalance(UUIDStore.getUniqueId(name)); }
+    public Number getBalance(String name) { return getBalance(UUIDStore.getUniqueIdIgnoreCase(name)); }
 
     /**
      * Get a player's balance in a specific world
@@ -166,7 +166,7 @@ public abstract class TrunkEconomy implements TrunkHook {
         return getBalance(player.getUniqueId(), world);
     }
 
-    public Number getBalance(String name, String world) { return getBalance(UUIDStore.getUniqueId(name), world); }
+    public Number getBalance(String name, String world) { return getBalance(UUIDStore.getUniqueIdIgnoreCase(name), world); }
 
     /**
      * Set a player's balance
@@ -177,7 +177,7 @@ public abstract class TrunkEconomy implements TrunkHook {
     public abstract EconomyResponse setBalance(UUID uniqueId, Number balance);
 
     public EconomyResponse setBalance(String name, Number balance) {
-        return setBalance(UUIDStore.getUniqueId(name), balance);
+        return setBalance(UUIDStore.getUniqueIdIgnoreCase(name), balance);
     }
 
     /**
@@ -215,7 +215,7 @@ public abstract class TrunkEconomy implements TrunkHook {
     }
 
     public EconomyResponse setBalance(String name, Number balance, String world) {
-        return setBalance(UUIDStore.getUniqueId(name), balance, world);
+        return setBalance(UUIDStore.getUniqueIdIgnoreCase(name), balance, world);
     }
 
     /**
@@ -236,7 +236,7 @@ public abstract class TrunkEconomy implements TrunkHook {
         return has(player.getUniqueId(), amount);
     }
 
-    public boolean has(String name, Number amount) { return has(UUIDStore.getUniqueId(name), amount); }
+    public boolean has(String name, Number amount) { return has(UUIDStore.getUniqueIdIgnoreCase(name), amount); }
 
     /**
      * Check whether a player's balance in a specific world exceeds an amount
@@ -263,7 +263,7 @@ public abstract class TrunkEconomy implements TrunkHook {
     }
 
     public boolean has(String name, Number amount, String world) {
-        return has(UUIDStore.getUniqueId(name), amount, world);
+        return has(UUIDStore.getUniqueIdIgnoreCase(name), amount, world);
     }
 
     /**
@@ -285,7 +285,7 @@ public abstract class TrunkEconomy implements TrunkHook {
     }
 
     public EconomyResponse deposit(String name, Number amount) {
-        return deposit(UUIDStore.getUniqueId(name), amount);
+        return deposit(UUIDStore.getUniqueIdIgnoreCase(name), amount);
     }
 
     /**
@@ -312,7 +312,7 @@ public abstract class TrunkEconomy implements TrunkHook {
     }
 
     public EconomyResponse deposit(String name, Number amount, String world) {
-        return deposit(UUIDStore.getUniqueId(name), amount, world);
+        return deposit(UUIDStore.getUniqueIdIgnoreCase(name), amount, world);
     }
 
     /**
@@ -358,7 +358,7 @@ public abstract class TrunkEconomy implements TrunkHook {
     }
 
     public EconomyResponse withdraw(String name, Number amount, String world) {
-        return withdraw(UUIDStore.getUniqueId(name), amount, world);
+        return withdraw(UUIDStore.getUniqueIdIgnoreCase(name), amount, world);
     }
 
     /**
@@ -450,7 +450,7 @@ public abstract class TrunkEconomy implements TrunkHook {
     }
 
     public boolean hasBankAccount(String name, String bank) {
-        return hasBankAccount(UUIDStore.getUniqueId(name), bank);
+        return hasBankAccount(UUIDStore.getUniqueIdIgnoreCase(name), bank);
     }
 
     /**
@@ -476,7 +476,7 @@ public abstract class TrunkEconomy implements TrunkHook {
     }
 
     public EconomyResponse createBankAccount(String name, String bank) {
-        return createBankAccount(UUIDStore.getUniqueId(name), bank);
+        return createBankAccount(UUIDStore.getUniqueIdIgnoreCase(name), bank);
     }
 
     /**
@@ -502,7 +502,7 @@ public abstract class TrunkEconomy implements TrunkHook {
     }
 
     public EconomyResponse deleteBankAccount(String name, String bank) {
-        return deleteBankAccount(UUIDStore.getUniqueId(name), bank);
+        return deleteBankAccount(UUIDStore.getUniqueIdIgnoreCase(name), bank);
     }
 
     /**
@@ -528,7 +528,7 @@ public abstract class TrunkEconomy implements TrunkHook {
     }
 
     public Number getBankAccountBalance(String name, String bank) {
-        return getBankAccountBalance(UUIDStore.getUniqueId(name), bank);
+        return getBankAccountBalance(UUIDStore.getUniqueIdIgnoreCase(name), bank);
     }
 
     /**
@@ -554,7 +554,7 @@ public abstract class TrunkEconomy implements TrunkHook {
     }
 
     public EconomyResponse setBankAccountBalance(String name, String bank, Number balance) {
-        return setBankAccountBalance(UUIDStore.getUniqueId(name), bank, balance);
+        return setBankAccountBalance(UUIDStore.getUniqueIdIgnoreCase(name), bank, balance);
     }
 
     /**
@@ -582,7 +582,7 @@ public abstract class TrunkEconomy implements TrunkHook {
     }
 
     public boolean bankAccountHas(String name, String bank, Number amount) {
-        return bankAccountHas(UUIDStore.getUniqueId(name), bank, amount);
+        return bankAccountHas(UUIDStore.getUniqueIdIgnoreCase(name), bank, amount);
     }
 
     /**
@@ -608,7 +608,7 @@ public abstract class TrunkEconomy implements TrunkHook {
     }
 
     public EconomyResponse depositBankAccount(String name, String bank, Number amount) {
-        return depositBankAccount(UUIDStore.getUniqueId(name), bank, amount);
+        return depositBankAccount(UUIDStore.getUniqueIdIgnoreCase(name), bank, amount);
     }
 
     /**
@@ -634,7 +634,7 @@ public abstract class TrunkEconomy implements TrunkHook {
     }
 
     public EconomyResponse withdrawBankAccount(String name, String bank, Number amount) {
-        return withdrawBankAccount(UUIDStore.getUniqueId(name), bank, amount);
+        return withdrawBankAccount(UUIDStore.getUniqueIdIgnoreCase(name), bank, amount);
     }
 
 }
