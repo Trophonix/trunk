@@ -18,6 +18,9 @@ public abstract class TrunkEconomy implements TrunkHook {
         this.plugin = plugin;
     }
 
+    /**
+     * @return The registering plugin
+     */
     @Override
     public Plugin getPlugin() {
         return plugin;
@@ -142,6 +145,11 @@ public abstract class TrunkEconomy implements TrunkHook {
         return getBalance(player.getUniqueId());
     }
 
+    /**
+     * Get a player's global balance
+     * @param name The player's name
+     * @return The player's global balance
+     */
     public Number getBalance(String name) { return getBalance(UUIDStore.getUniqueIdIgnoreCase(name)); }
 
     /**
@@ -166,28 +174,40 @@ public abstract class TrunkEconomy implements TrunkHook {
         return getBalance(player.getUniqueId(), world);
     }
 
+    /**
+     * Get a player's balance in a specific world
+     * @param name The player's name
+     * @param world The world
+     * @return The player's balance in the world
+     */
     public Number getBalance(String name, String world) { return getBalance(UUIDStore.getUniqueIdIgnoreCase(name), world); }
 
     /**
-     * Set a player's balance
+     * Set a player's global balance
      * @param uniqueId The player's uuid
      * @param balance The player's new balance
      * @return A response
      */
     public abstract EconomyResponse setBalance(UUID uniqueId, Number balance);
 
-    public EconomyResponse setBalance(String name, Number balance) {
-        return setBalance(UUIDStore.getUniqueIdIgnoreCase(name), balance);
-    }
-
     /**
-     * Set a player's balance
+     * Set a player's global balance
      * @param player The player
      * @param balance The player's new balance
      * @return A response
      */
     public EconomyResponse setBalance(OfflinePlayer player, Number balance) {
         return setBalance(player.getUniqueId(), balance);
+    }
+
+    /**
+     * Set a player's global balance
+     * @param name The player's name
+     * @param balance The player's new balance
+     * @return A response
+     */
+    public EconomyResponse setBalance(String name, Number balance) {
+        return setBalance(UUIDStore.getUniqueIdIgnoreCase(name), balance);
     }
 
     /**
@@ -214,6 +234,14 @@ public abstract class TrunkEconomy implements TrunkHook {
         return setBalance(player.getUniqueId(), balance, world);
     }
 
+    /**
+     * Set a player's balance in a specific world
+     * Redirects to setting the player's global balance if not overridden
+     * @param name The player's name
+     * @param balance The player's new balance
+     * @param world The world
+     * @return A response
+     */
     public EconomyResponse setBalance(String name, Number balance, String world) {
         return setBalance(UUIDStore.getUniqueIdIgnoreCase(name), balance, world);
     }
@@ -236,6 +264,12 @@ public abstract class TrunkEconomy implements TrunkHook {
         return has(player.getUniqueId(), amount);
     }
 
+    /**
+     * Check whether a player's global balance exceeds an amount
+     * @param name The player's name
+     * @param amount Amount to check
+     * @return Whether the player has the amount
+     */
     public boolean has(String name, Number amount) { return has(UUIDStore.getUniqueIdIgnoreCase(name), amount); }
 
     /**
@@ -262,6 +296,13 @@ public abstract class TrunkEconomy implements TrunkHook {
         return has(player.getUniqueId(), amount, world);
     }
 
+    /**
+     * Check whether a player's balance in a specific world exceeds an amount
+     * @param name The player's name
+     * @param amount Amount to check
+     * @param world The world
+     * @return Whether the player has the amount
+     */
     public boolean has(String name, Number amount, String world) {
         return has(UUIDStore.getUniqueIdIgnoreCase(name), amount, world);
     }
@@ -284,6 +325,12 @@ public abstract class TrunkEconomy implements TrunkHook {
         return deposit(player.getUniqueId(), amount);
     }
 
+    /**
+     * Deposit into a player's balance
+     * @param name The player's name
+     * @param amount Amount to deposit
+     * @return A response
+     */
     public EconomyResponse deposit(String name, Number amount) {
         return deposit(UUIDStore.getUniqueIdIgnoreCase(name), amount);
     }
@@ -311,6 +358,13 @@ public abstract class TrunkEconomy implements TrunkHook {
         return deposit(player.getUniqueId(), amount, world);
     }
 
+    /**
+     * Deposit into a player's balance into a specific world
+     * @param name The player's name
+     * @param amount Amount to deposit
+     * @param world The world
+     * @return A response
+     */
     public EconomyResponse deposit(String name, Number amount, String world) {
         return deposit(UUIDStore.getUniqueIdIgnoreCase(name), amount, world);
     }
@@ -357,6 +411,13 @@ public abstract class TrunkEconomy implements TrunkHook {
         return withdraw(player.getUniqueId(), amount, world);
     }
 
+    /**
+     * Withdraws from a player's balance in a specific world
+     * @param name The player's name
+     * @param amount Amount to withdraw
+     * @param world The world
+     * @return A response
+     */
     public EconomyResponse withdraw(String name, Number amount, String world) {
         return withdraw(UUIDStore.getUniqueIdIgnoreCase(name), amount, world);
     }
@@ -409,7 +470,7 @@ public abstract class TrunkEconomy implements TrunkHook {
 
     /**
      * Check whether a bank's balance exceeds an amount
-     * Returns getBankBalance >= amount if not overridden
+     * Returns getBankBalance is greater than or equal to amount if not overridden
      * @param bank The bank
      * @param amount Amount to check
      * @return Whether the bank has the amount
@@ -429,7 +490,7 @@ public abstract class TrunkEconomy implements TrunkHook {
 
     /**
      * Check whether a player has an account (saved balance) in a bank
-     * Returns false if hook doesn't support banks
+     * Returns false if not overridden
      * @param uniqueId The player's uuid
      * @param bank The bank
      * @return Whether the player has an account in the bank
@@ -440,7 +501,7 @@ public abstract class TrunkEconomy implements TrunkHook {
 
     /**
      * Check whether a player has an account (saved balance) in a bank
-     * Returns false if hook doesn't support banks
+     * Returns false if not overridden
      * @param player The player
      * @param bank The bank
      * @return Whether the player has an account in the bank
@@ -449,13 +510,20 @@ public abstract class TrunkEconomy implements TrunkHook {
         return hasBankAccount(player.getUniqueId(), bank);
     }
 
+    /**
+     * Check whether a player has an account (saved balance) in a bank
+     * Returns false if not overridden
+     * @param name The player's name
+     * @param bank The bank
+     * @return Whether the player has an account in the bank
+     */
     public boolean hasBankAccount(String name, String bank) {
         return hasBankAccount(UUIDStore.getUniqueIdIgnoreCase(name), bank);
     }
 
     /**
      * Create a bank account in a bank for a player
-     * Returns failure if hook doesn't support banks
+     * Returns failure if not overridden
      * @param uniqueId The player's unique id
      * @param bank The bank
      * @return A response
@@ -466,7 +534,7 @@ public abstract class TrunkEconomy implements TrunkHook {
 
     /**
      * Create a bank account in a bank for a player
-     * Returns failure if hook doesn't support banks
+     * Returns failure if not overridden
      * @param player The player
      * @param bank The bank
      * @return A response
@@ -475,13 +543,19 @@ public abstract class TrunkEconomy implements TrunkHook {
         return createBankAccount(player.getUniqueId(), bank);
     }
 
+    /**
+     * Create a bank account in a bank for a player
+     * @param name The player's name
+     * @param bank The bank
+     * @return A response
+     */
     public EconomyResponse createBankAccount(String name, String bank) {
         return createBankAccount(UUIDStore.getUniqueIdIgnoreCase(name), bank);
     }
 
     /**
      * Delete bank account in a bank for a player
-     * Returns failure if hook doesn't support banks
+     * Returns failure if not overridden
      * @param uniqueId The player's unique id
      * @param bank The bank
      * @return A response
@@ -492,7 +566,7 @@ public abstract class TrunkEconomy implements TrunkHook {
 
     /**
      * Delete bank account in a bank for a player
-     * Returns failure if hook doesn't support banks
+     * Returns failure if not overridden
      * @param player The player
      * @param bank The bank
      * @return A response
@@ -501,13 +575,20 @@ public abstract class TrunkEconomy implements TrunkHook {
         return deleteBankAccount(player.getUniqueId(), bank);
     }
 
+    /**
+     * Delete a bank account in a bank for a player
+     * Returns failure if not overridden
+     * @param name The player's name
+     * @param bank The bank
+     * @return A response
+     */
     public EconomyResponse deleteBankAccount(String name, String bank) {
         return deleteBankAccount(UUIDStore.getUniqueIdIgnoreCase(name), bank);
     }
 
     /**
      * Get a player's balance in a bank
-     * Returns 0 if hook doesn't support banks
+     * Returns 0 if not overridden
      * @param uniqueId The player's uuid
      * @param bank The bank
      * @return The player's balance in the bank
@@ -518,7 +599,7 @@ public abstract class TrunkEconomy implements TrunkHook {
 
     /**
      * Get a player's balance in a bank
-     * Returns 0 if hook doesn't support banks
+     * Returns 0 if not overridden
      * @param player The player
      * @param bank The bank
      * @return The player's balance in the bank
@@ -527,15 +608,23 @@ public abstract class TrunkEconomy implements TrunkHook {
         return getBankAccountBalance(player.getUniqueId(), bank);
     }
 
+    /**
+     * Get a player's balance in a bank
+     * Returns 0 if not overridden
+     * @param name The player's name
+     * @param bank The bank
+     * @return The player's balance in the bank
+     */
     public Number getBankAccountBalance(String name, String bank) {
         return getBankAccountBalance(UUIDStore.getUniqueIdIgnoreCase(name), bank);
     }
 
     /**
      * Set a player's balance in a bank
-     * Returns failure if hook doesn't support banks
+     * Returns failure if not overridden
      * @param uniqueId The player's uuid
      * @param bank The bank
+     * @param balance The new balance
      * @return A response
      */
     public EconomyResponse setBankAccountBalance(UUID uniqueId, String bank, Number balance) {
@@ -544,22 +633,31 @@ public abstract class TrunkEconomy implements TrunkHook {
 
     /**
      * Set a player's balance in a bank
-     * Returns failure if hook doesn't support banks
+     * Returns failure if not overridden
      * @param player The player
      * @param bank The bank
+     * @param balance The new balance
      * @return A response
      */
     public EconomyResponse setBankAccountBalance(OfflinePlayer player, String bank, Number balance) {
         return setBankAccountBalance(player.getUniqueId(), bank, balance);
     }
 
+    /**
+     * Set a player's balance in a bank
+     * Returns failure if not overridden
+     * @param name The player's name
+     * @param bank The bank
+     * @param balance The new balance
+     * @return A response
+     */
     public EconomyResponse setBankAccountBalance(String name, String bank, Number balance) {
         return setBankAccountBalance(UUIDStore.getUniqueIdIgnoreCase(name), bank, balance);
     }
 
     /**
      * Check whether a player's balance in a bank exceeds an amount
-     * Returns false if hook doesn't support banks
+     * Returns false if not overridden
      * @param uniqueId The player's uuid
      * @param bank The bank
      * @param amount The amount
@@ -571,7 +669,7 @@ public abstract class TrunkEconomy implements TrunkHook {
 
     /**
      * Check whether a player's balance in a bank exceeds an amount
-     * Returns false if hook doesn't support banks
+     * Returns false if not overridden
      * @param player The player
      * @param bank The bank
      * @param amount The amount
@@ -581,15 +679,24 @@ public abstract class TrunkEconomy implements TrunkHook {
         return bankAccountHas(player.getUniqueId(), bank, amount);
     }
 
+    /**
+     * Check whether a player's balance in a bank exceeds an amount
+     * Returns false if not overridden
+     * @param name The player's name
+     * @param bank The bank
+     * @param amount The amount
+     * @return Whether the player's balance in the bank exceeds the amount
+     */
     public boolean bankAccountHas(String name, String bank, Number amount) {
         return bankAccountHas(UUIDStore.getUniqueIdIgnoreCase(name), bank, amount);
     }
 
     /**
      * Deposit into a player's balance in a bank
-     * Returns failure if hook doesn't support banks
+     * Returns failure if not overridden
      * @param uniqueId The player's uuid
      * @param bank The bank
+     * @param amount Amount to deposit
      * @return A response
      */
     public EconomyResponse depositBankAccount(UUID uniqueId, String bank, Number amount) {
@@ -598,24 +705,34 @@ public abstract class TrunkEconomy implements TrunkHook {
 
     /**
      * Deposit into a player's balance in a bank
-     * Returns failure if hook doesn't support banks
+     * Returns failure if not overridden
      * @param player The player
      * @param bank The bank
+     * @param amount Amount to deposit
      * @return A response
      */
     public EconomyResponse depositBankAccount(OfflinePlayer player, String bank, Number amount) {
         return depositBankAccount(player.getUniqueId(), bank, amount);
     }
 
+    /**
+     * Deposit into a player's balance in a bank
+     * Returns failure if not overridden
+     * @param name The player's name
+     * @param bank The bank
+     * @param amount Amount to deposit
+     * @return A response
+     */
     public EconomyResponse depositBankAccount(String name, String bank, Number amount) {
         return depositBankAccount(UUIDStore.getUniqueIdIgnoreCase(name), bank, amount);
     }
 
     /**
      * Withdraw from a player's balance in a bank
-     * Returns failure if hook doesn't support banks
+     * Returns failure if not overridden
      * @param uniqueId The player's uuid
      * @param bank The bank
+     * @param amount Amount to withdraw
      * @return A response
      */
     public EconomyResponse withdrawBankAccount(UUID uniqueId, String bank, Number amount) {
@@ -624,15 +741,24 @@ public abstract class TrunkEconomy implements TrunkHook {
 
     /**
      * Withdraw from a player's balance in a bank
-     * Returns failure if hook doesn't support banks
+     * Returns failure if not overridden
      * @param player The player
      * @param bank The bank
+     * @param amount Amount to withdraw
      * @return A response
      */
     public EconomyResponse withdrawBankAccount(OfflinePlayer player, String bank, Number amount) {
         return withdrawBankAccount(player.getUniqueId(), bank, amount);
     }
 
+    /**
+     * Withdraw from a player's balance in a bank
+     * Returns failure if not overridden
+     * @param name The player's name
+     * @param bank The bank
+     * @param amount Amount to withdraw
+     * @return A response
+     */
     public EconomyResponse withdrawBankAccount(String name, String bank, Number amount) {
         return withdrawBankAccount(UUIDStore.getUniqueIdIgnoreCase(name), bank, amount);
     }
