@@ -1,4 +1,4 @@
-name: TrunkEconomyExample
+name: TrunkExample
 version: 1.0
 author: Trophonix
 main: com.trophonix.trunkexample.TrunkExample
@@ -12,3 +12,5 @@ commands:
     aliases: [givemoney]
   ecoset:
     description: "Set a player's balance"
+  prefix:
+    description: "Set a player's prefix"

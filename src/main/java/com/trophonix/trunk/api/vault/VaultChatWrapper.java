@@ -4,6 +4,7 @@ import com.google.common.collect.Iterables;
 import com.trophonix.trunk.Trunk;
 import com.trophonix.trunk.UUIDStore;
 import com.trophonix.trunk.api.chat.TrunkChat;
+import com.trophonix.trunk.exceptions.UnknownPlayerException;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.OfflinePlayer;
@@ -31,12 +32,14 @@ public class VaultChatWrapper extends Chat {
 
     @Override
     public String getPlayerPrefix(World world, String player) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return null;
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            return wrapped.getPrefix(world, uniqueId);
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
         }
-        return wrapped.getPrefix(world, uniqueId);
+        return null;
     }
 
     @Override
@@ -51,12 +54,13 @@ public class VaultChatWrapper extends Chat {
 
     @Override
     public void setPlayerPrefix(World world, String player, String prefix) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return;
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            wrapped.setPrefix(world, uniqueId, prefix);
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
         }
-        wrapped.setPrefix(world, uniqueId, prefix);
     }
 
     @Override
@@ -71,12 +75,14 @@ public class VaultChatWrapper extends Chat {
 
     @Override
     public String getPlayerSuffix(World world, String player) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return null;
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            return wrapped.getSuffix(world, uniqueId);
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
         }
-        return wrapped.getSuffix(world, uniqueId);
+        return null;
     }
 
     @Override
@@ -91,12 +97,13 @@ public class VaultChatWrapper extends Chat {
 
     @Override
     public void setPlayerSuffix(World world, String player, String suffix) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return;
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            wrapped.setSuffix(world, uniqueId, suffix);
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
         }
-        wrapped.setSuffix(world, uniqueId, suffix);
     }
 
     @Override
@@ -111,16 +118,26 @@ public class VaultChatWrapper extends Chat {
 
     @Override
     public boolean playerInGroup(String world, String player, String group) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        return uniqueId != null && wrapped.playerInGroup(world, uniqueId, group);
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            return uniqueId != null && wrapped.playerInGroup(world, uniqueId, group);
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
+        }
+        return false;
     }
 
     @Override
     public boolean playerInGroup(World world, String player, String group) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        return uniqueId != null && wrapped.playerInGroup(world, uniqueId, group);
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            return uniqueId != null && wrapped.playerInGroup(world, uniqueId, group);
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
+        }
+        return false;
     }
 
     @Override
@@ -135,22 +152,26 @@ public class VaultChatWrapper extends Chat {
 
     @Override
     public String[] getPlayerGroups(String world, String player) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return null;
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            return Iterables.toArray(wrapped.getGroups(world, uniqueId), String.class);
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
         }
-        return Iterables.toArray(wrapped.getGroups(world, uniqueId), String.class);
+        return null;
     }
 
     @Override
     public String[] getPlayerGroups(World world, String player) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return null;
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            return Iterables.toArray(wrapped.getGroups(world, uniqueId), String.class);
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
         }
-        return Iterables.toArray(wrapped.getGroups(world, uniqueId), String.class);
+        return null;
     }
 
     @Override
@@ -165,22 +186,26 @@ public class VaultChatWrapper extends Chat {
 
     @Override
     public String getPrimaryGroup(String world, String player) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return null;
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            return wrapped.getPrimaryGroup(world, uniqueId);
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
         }
-        return wrapped.getPrimaryGroup(world, uniqueId);
+        return null;
     }
 
     @Override
     public String getPrimaryGroup(World world, String player) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return null;
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            return wrapped.getPrimaryGroup(world, uniqueId);
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
         }
-        return wrapped.getPrimaryGroup(world, uniqueId);
+        return null;
     }
 
     @Override
@@ -205,42 +230,48 @@ public class VaultChatWrapper extends Chat {
 
     @Override
     public String getPlayerPrefix(String world, String player) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return null;
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            return wrapped.getPrefix(world, uniqueId);
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
         }
-        return wrapped.getPrefix(world, uniqueId);
+        return null;
     }
 
     @Override
     public void setPlayerPrefix(String world, String player, String prefix) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return;
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            wrapped.setPrefix(world, uniqueId, prefix);
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
         }
-        wrapped.setPrefix(world, uniqueId, prefix);
     }
 
     @Override
     public String getPlayerSuffix(String world, String player) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return null;
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            return wrapped.getSuffix(world, uniqueId);
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
         }
-        return wrapped.getSuffix(world, uniqueId);
+        return null;
     }
 
     @Override
     public void setPlayerSuffix(String world, String player, String suffix) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return;
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            wrapped.setSuffix(world, uniqueId, suffix);
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
         }
-        wrapped.setSuffix(world, uniqueId, suffix);
     }
 
     @Override
@@ -265,22 +296,25 @@ public class VaultChatWrapper extends Chat {
 
     @Override
     public int getPlayerInfoInteger(String world, String player, String node, int defaultValue) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return 0;
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            return wrapped.getIntegerPlayerOption(world, uniqueId, node, defaultValue);
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
         }
-        return wrapped.getIntegerPlayerOption(world, uniqueId, node, defaultValue);
+        return 0;
     }
 
     @Override
     public void setPlayerInfoInteger(String world, String player, String node, int value) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return;
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            wrapped.setIntegerPlayerOption(world, uniqueId, node, value);
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
         }
-        wrapped.setIntegerPlayerOption(world, uniqueId, node, value);
     }
 
     @Override
@@ -295,22 +329,25 @@ public class VaultChatWrapper extends Chat {
 
     @Override
     public double getPlayerInfoDouble(String world, String player, String node, double defaultValue) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return 0;
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            return wrapped.getDoublePlayerOption(world, uniqueId, node, defaultValue);
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
         }
-        return wrapped.getDoublePlayerOption(world, uniqueId, node, defaultValue);
+        return 0;
     }
 
     @Override
     public void setPlayerInfoDouble(String world, String player, String node, double value) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return;
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            wrapped.setDoublePlayerOption(world, uniqueId, node, value);
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
         }
-        wrapped.setDoublePlayerOption(world, uniqueId, node, value);
     }
 
     @Override
@@ -325,19 +362,25 @@ public class VaultChatWrapper extends Chat {
 
     @Override
     public boolean getPlayerInfoBoolean(String world, String player, String node, boolean defaultValue) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        return uniqueId != null && wrapped.getBooleanPlayerOption(world, uniqueId, node, defaultValue);
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            return uniqueId != null && wrapped.getBooleanPlayerOption(world, uniqueId, node, defaultValue);
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
+        }
+        return false;
     }
 
     @Override
     public void setPlayerInfoBoolean(String world, String player, String node, boolean value) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return;
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            wrapped.setBooleanPlayerOption(world, uniqueId, node, value);
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
         }
-        wrapped.setBooleanPlayerOption(world, uniqueId, node, value);
     }
 
     @Override
@@ -352,22 +395,25 @@ public class VaultChatWrapper extends Chat {
 
     @Override
     public String getPlayerInfoString(String world, String player, String node, String defaultValue) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return null;
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            return wrapped.getStringPlayerOption(world, uniqueId, node, defaultValue);
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
         }
-        return wrapped.getStringPlayerOption(world, uniqueId, node, defaultValue);
+        return null;
     }
 
     @Override
     public void setPlayerInfoString(String world, String player, String node, String value) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return;
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            wrapped.setStringPlayerOption(world, uniqueId, node, value);
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
         }
-        wrapped.setStringPlayerOption(world, uniqueId, node, value);
     }
 
     @Override

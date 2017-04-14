@@ -1,178 +1,173 @@
-package com.trophonix.trunk.api.vault;
+package com.trophonix.trunkexample;
 
-import com.trophonix.trunk.UUIDStore;
 import com.trophonix.trunk.api.permissions.TrunkPermissions;
-import net.milkbowl.vault.permission.Permission;
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.UUID;
 
 /**
- * Created by Lucas on 4/13/17.
+ * Created by Lucas on 4/14/17.
  */
-public class TrunkVaultPermissionsWrapper extends TrunkPermissions {
+public class ExamplePermissions extends TrunkPermissions {
 
-    private final Permission wrapped;
+    private TrunkExample main;
 
-    private String world = Bukkit.getWorlds().get(0).getName();
-
-    public TrunkVaultPermissionsWrapper(Plugin plugin, Permission wrapped) {
-        super(plugin);
-        this.wrapped = wrapped;
+    public ExamplePermissions(TrunkExample main) {
+        super(main);
+        this.main = main;
     }
 
     @Override
     public boolean has(Player player, String node) {
-        return wrapped.has(player, node);
+        return player.hasPermission(node);
     }
 
     @Override
     public boolean has(CommandSender player, String node) {
-        return wrapped.has(player, node);
+        return player.hasPermission(node);
     }
 
     @Override
     public boolean playerHas(UUID uniqueId, String node) {
-        return wrapped.playerHas(world, UUIDStore.getName(uniqueId), node);
+        return main.getConfig().getBoolean("permissions.players." + uniqueId.toString() + ".permissions.'" + node + "'", false);
     }
 
     @Override
     public boolean playerHas(String world, UUID uniqueId, String node) {
-        return wrapped.playerHas(world, UUIDStore.getName(uniqueId), node);
+        return playerHas(uniqueId, node); // My plugin doesn't support per-world perms
     }
 
     @Override
     public boolean playerAdd(UUID uniqueId, String node) {
-        return wrapped.playerAdd(world, UUIDStore.getName(uniqueId), node);
+        main.getConfig().set("permissions.players." + uniqueId.toString() + ".permissions.'" + node + "'", true);
+        return main.getConfig().isSet("permissions.players." + uniqueId.toString() + ".permissions.'" + node + "'");
     }
 
     @Override
     public boolean playerAdd(String world, UUID uniqueId, String node) {
-        return wrapped.playerAdd(world, UUIDStore.getName(uniqueId), node);
+        return playerAdd(uniqueId, node);
     }
 
     @Override
     public boolean playerRemove(UUID uniqueId, String node) {
-        return wrapped.playerRemove(world, UUIDStore.getName(uniqueId), node);
+        main.getConfig().set("permissions.players." + uniqueId.toString() + ".permissions.'" + node + "'", null);
+        return !main.getConfig().isSet("permissions.players." + uniqueId.toString() + ".permissions.'" + node + "'");
     }
 
     @Override
     public boolean playerRemove(String world, UUID uniqueId, String node) {
-        return wrapped.playerRemove(world, UUIDStore.getName(uniqueId), node);
+        return playerRemove(uniqueId, node);
     }
 
     @Override
     public boolean playerAddTransient(UUID uniqueId, String node) {
-        return wrapped.playerAddTransient(UUIDStore.getName(uniqueId), node);
+        return false;
     }
 
     @Override
     public boolean playerAddTransient(String world, UUID uniqueId, String node) {
-        return wrapped.playerAddTransient(world, UUIDStore.getName(uniqueId), node);
+        return false;
     }
 
     @Override
     public boolean playerRemoveTransient(UUID uniqueId, String node) {
-        return wrapped.playerRemoveTransient(UUIDStore.getName(uniqueId), node);
+        return false;
     }
 
     @Override
     public boolean playerRemoveTransient(String world, UUID uniqueId, String node) {
-        return wrapped.playerRemoveTransient(world, UUIDStore.getName(uniqueId), node);
+        return false;
     }
 
     @Override
     public boolean hasGroupSupport() {
-        return wrapped.hasGroupSupport();
+        return false;
     }
 
     @Override
     public boolean playerAddGroup(UUID uniqueId, String group) {
-        return wrapped.playerAddGroup(world, UUIDStore.getName(uniqueId), group);
+        return false;
     }
 
     @Override
     public boolean playerAddGroup(String world, UUID uniqueId, String group) {
-        return wrapped.playerAddGroup(world, UUIDStore.getName(uniqueId), group);
+        return false;
     }
 
     @Override
     public boolean playerRemoveGroup(UUID uniqueId, String group) {
-        return wrapped.playerRemoveGroup(world, UUIDStore.getName(uniqueId), group);
+        return false;
     }
 
     @Override
     public boolean playerRemoveGroup(String world, UUID uniqueId, String group) {
-        return wrapped.playerRemoveGroup(world, UUIDStore.getName(uniqueId), group);
+        return false;
     }
 
     @Override
     public boolean playerInGroup(UUID uniqueId, String group) {
-        return wrapped.playerInGroup(world, UUIDStore.getName(uniqueId), group);
+        return false;
     }
 
     @Override
     public boolean playerInGroup(String world, UUID uniqueId, String group) {
-        return wrapped.playerInGroup(world, UUIDStore.getName(uniqueId), group);
+        return false;
     }
 
     @Override
     public boolean groupHas(String group, String node) {
-        return wrapped.groupHas(world, group, node);
+        return false;
     }
 
     @Override
     public boolean groupHas(String world, String group, String node) {
-        return wrapped.groupHas(world, group, node);
+        return false;
     }
 
     @Override
     public boolean groupAdd(String group, String node) {
-        return wrapped.groupAdd(world, group, node);
+        return false;
     }
 
     @Override
     public boolean groupAdd(String world, String group, String node) {
-        return wrapped.groupAdd(world, group, node);
+        return false;
     }
 
     @Override
     public boolean groupRemove(String group, String node) {
-        return wrapped.groupRemove(world, group, node);
+        return false;
     }
 
     @Override
     public boolean groupRemove(String world, String group, String node) {
-        return wrapped.groupRemove(world, group, node);
+        return false;
     }
 
     @Override
     public Iterable<String> getPlayerGroups(UUID uniqueId) {
-        return Arrays.asList(wrapped.getPlayerGroups(world, UUIDStore.getName(uniqueId)));
+        return null;
     }
 
     @Override
     public Iterable<String> getPlayerGroups(String world, UUID uniqueId) {
-        return Arrays.asList(wrapped.getPlayerGroups(world, UUIDStore.getName(uniqueId)));
+        return null;
     }
 
     @Override
     public String getPrimaryGroup(UUID uniqueId) {
-        return wrapped.getPrimaryGroup(world, UUIDStore.getName(uniqueId));
+        return null;
     }
 
     @Override
     public String getPrimaryGroup(String world, UUID uniqueId) {
-        return wrapped.getPrimaryGroup(world, UUIDStore.getName(uniqueId));
+        return null;
     }
 
     @Override
     public Iterable<String> getGroups() {
-        return Arrays.asList(wrapped.getGroups());
+        return Collections.emptyList();
     }
-
 }

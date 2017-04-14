@@ -3,6 +3,7 @@ package com.trophonix.trunk.api.vault;
 import com.trophonix.trunk.UUIDStore;
 import com.trophonix.trunk.api.chat.TrunkChat;
 import net.milkbowl.vault.chat.Chat;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 
 import java.util.Arrays;
@@ -15,9 +16,16 @@ public class TrunkVaultChatWrapper extends TrunkChat {
 
     private final Chat wrapped;
 
+    private String world = Bukkit.getWorlds().get(0).getName();
+
     public TrunkVaultChatWrapper(Plugin plugin, Chat chat) {
         super(plugin);
         this.wrapped = chat;
+    }
+
+    @Override
+    public String getPrefix(UUID uniqueId) {
+        return wrapped.getPlayerPrefix(world, UUIDStore.getName(uniqueId));
     }
 
     @Override
@@ -26,8 +34,18 @@ public class TrunkVaultChatWrapper extends TrunkChat {
     }
 
     @Override
+    public void setPrefix(UUID uniqueId, String prefix) {
+        wrapped.setPlayerPrefix(world, UUIDStore.getName(uniqueId), prefix);
+    }
+
+    @Override
     public void setPrefix(String world, UUID uniqueId, String prefix) {
         wrapped.setPlayerPrefix(world, UUIDStore.getName(uniqueId), prefix);
+    }
+
+    @Override
+    public String getSuffix(UUID uniqueId) {
+        return wrapped.getPlayerSuffix(world, UUIDStore.getName(uniqueId));
     }
 
     @Override
@@ -36,8 +54,18 @@ public class TrunkVaultChatWrapper extends TrunkChat {
     }
 
     @Override
+    public void setSuffix(UUID uniqueId, String suffix) {
+        wrapped.setPlayerSuffix(world, UUIDStore.getName(uniqueId), suffix);
+    }
+
+    @Override
     public void setSuffix(String world, UUID uniqueId, String suffix) {
         wrapped.setPlayerSuffix(world, UUIDStore.getName(uniqueId), suffix);
+    }
+
+    @Override
+    public Iterable<String> getGroups(UUID uniqueId) {
+        return Arrays.asList(wrapped.getPlayerGroups(world, UUIDStore.getName(uniqueId)));
     }
 
     @Override
@@ -46,8 +74,18 @@ public class TrunkVaultChatWrapper extends TrunkChat {
     }
 
     @Override
+    public String getPrimaryGroup(UUID uniqueId) {
+        return wrapped.getPrimaryGroup(Bukkit.getWorlds().get(0), UUIDStore.getName(uniqueId));
+    }
+
+    @Override
     public String getPrimaryGroup(String world, UUID uniqueId) {
         return wrapped.getPrimaryGroup(world, UUIDStore.getName(uniqueId));
+    }
+
+    @Override
+    public boolean playerInGroup(UUID uniqueId, String group) {
+        return wrapped.playerInGroup(world, UUIDStore.getName(uniqueId), group);
     }
 
     @Override
@@ -56,8 +94,18 @@ public class TrunkVaultChatWrapper extends TrunkChat {
     }
 
     @Override
+    public String getGroupPrefix(String group) {
+        return wrapped.getGroupPrefix(world, group);
+    }
+
+    @Override
     public String getGroupPrefix(String world, String group) {
         return wrapped.getGroupPrefix(world, group);
+    }
+
+    @Override
+    public void setGroupPrefix(String group, String prefix) {
+        wrapped.setGroupPrefix(world, group, prefix);
     }
 
     @Override
@@ -66,8 +114,18 @@ public class TrunkVaultChatWrapper extends TrunkChat {
     }
 
     @Override
+    public String getGroupSuffix(String group) {
+        return wrapped.getGroupSuffix(world, group);
+    }
+
+    @Override
     public String getGroupSuffix(String world, String group) {
         return wrapped.getGroupSuffix(world, group);
+    }
+
+    @Override
+    public void setGroupSuffix(String group, String suffix) {
+        wrapped.setGroupSuffix(world, group, suffix);
     }
 
     @Override

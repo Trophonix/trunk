@@ -1,5 +1,6 @@
 package com.trophonix.trunk;
 
+import com.trophonix.trunk.exceptions.UnknownPlayerException;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -16,14 +17,7 @@ public class UUIDStore {
 
     private static final Set<Profile> profiles = new HashSet<>();
 
-    public static UUID getUniqueId(String name) {
-        for (Profile p : profiles) {
-            if (p.name.equals(name)) return p.uniqueId;
-        }
-        return findAndStoreUniqueId(name);
-    }
-
-    public static UUID getUniqueIdIgnoreCase(String name) {
+    public static UUID getUniqueId(String name) throws UnknownPlayerException {
         for (Profile p : profiles) {
             if (p.name.equalsIgnoreCase(name)) return p.uniqueId;
         }
@@ -37,14 +31,20 @@ public class UUIDStore {
         return findAndStoreName(uniqueId);
     }
 
-    public static UUID findAndStoreUniqueId(String name) {
+    public static UUID findAndStoreUniqueId(String name) throws UnknownPlayerException {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            if (player.getName().equals(name)) {
+            if (player.getName().equalsIgnoreCase(name)) {
                 profiles.add(new Profile(player.getUniqueId(), player.getName()));
                 return player.getUniqueId();
             }
         }
-        return null;
+        for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
+            if (player.getName().equalsIgnoreCase(name)) {
+                store(player);
+                return player.getUniqueId();
+            }
+        }
+        throw new UnknownPlayerException(name);
     }
 
     public static String findAndStoreName(UUID uniqueId) {

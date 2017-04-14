@@ -1,6 +1,8 @@
 package com.trophonix.trunk.api.permissions;
 
+import com.trophonix.trunk.UUIDStore;
 import com.trophonix.trunk.api.TrunkHook;
+import com.trophonix.trunk.exceptions.UnknownPlayerException;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
@@ -26,28 +28,18 @@ public abstract class TrunkPermissions implements TrunkHook {
         return plugin;
     }
 
-    public abstract boolean has(UUID uniqueId, String node);
-
-    public boolean has(Player player, String node) {
-        return has(player.getUniqueId(), node);
-    }
+    public abstract boolean has(Player player, String node);
 
     public abstract boolean has(CommandSender player, String node);
-
-    public abstract boolean has(String world, UUID uniqueId, String node);
-
-    public boolean has(World world, UUID uniqueId, String node) {
-        return has(world.getName(), uniqueId, node);
-    }
-
-    public boolean has(World world, Player player, String node) {
-        return has(world.getName(), player.getUniqueId(), node);
-    }
 
     public abstract boolean playerHas(UUID uniqueId, String node);
 
     public boolean playerHas(Player player, String node) {
         return playerHas(player.getUniqueId(), node);
+    }
+
+    public boolean playerHas(String name, String node) throws UnknownPlayerException {
+        return playerHas(UUIDStore.getUniqueId(name), node);
     }
 
     public abstract boolean playerHas(String world, UUID uniqueId, String node);
@@ -64,10 +56,18 @@ public abstract class TrunkPermissions implements TrunkHook {
         return playerHas(world.getName(), player.getUniqueId(), node);
     }
 
+    public boolean playerHas(String world, String name, String node) throws UnknownPlayerException {
+        return playerHas(world, UUIDStore.getUniqueId(name), node);
+    }
+
     public abstract boolean playerAdd(UUID uniqueId, String node);
 
     public boolean playerAdd(Player player, String node) {
         return playerAdd(player.getUniqueId(), node);
+    }
+
+    public boolean playerAdd(String name, String node) throws UnknownPlayerException {
+        return playerAdd(UUIDStore.getUniqueId(name), node);
     }
 
     public abstract boolean playerAdd(String world, UUID uniqueId, String node);
@@ -84,10 +84,18 @@ public abstract class TrunkPermissions implements TrunkHook {
         return playerAdd(world.getName(), player.getUniqueId(), node);
     }
 
+    public boolean playerAdd(String world, String name, String node) throws UnknownPlayerException {
+        return playerAdd(world, UUIDStore.getUniqueId(name), node);
+    }
+
     public abstract boolean playerRemove(UUID uniqueId, String node);
 
     public boolean playerRemove(Player player, String node) {
         return playerRemove(player.getUniqueId(), node);
+    }
+
+    public boolean playerRemove(String name, String node) throws UnknownPlayerException {
+        return playerRemove(UUIDStore.getUniqueId(name), node);
     }
 
     public abstract boolean playerRemove(String world, UUID uniqueId, String node);
@@ -104,10 +112,18 @@ public abstract class TrunkPermissions implements TrunkHook {
         return playerAdd(world.getName(), player.getUniqueId(), node);
     }
 
+    public boolean playerRemove(String world, String name, String node) throws UnknownPlayerException {
+        return playerRemove(world, UUIDStore.getUniqueId(name), node);
+    }
+
     public abstract boolean playerAddTransient(UUID uniqueId, String node);
 
     public boolean playerAddTransient(Player player, String node) {
         return playerAddTransient(player.getUniqueId(), node);
+    }
+
+    public boolean playerAddTransient(String name, String node) throws UnknownPlayerException {
+        return playerAddTransient(UUIDStore.getUniqueId(name), node);
     }
 
     public abstract boolean playerAddTransient(String world, UUID uniqueId, String node);
@@ -124,10 +140,18 @@ public abstract class TrunkPermissions implements TrunkHook {
         return playerAddTransient(world.getName(), player.getUniqueId(), node);
     }
 
+    public boolean playerAddTransient(String world, String name, String node) throws UnknownPlayerException {
+        return playerAddTransient(world, UUIDStore.getUniqueId(name), node);
+    }
+
     public abstract boolean playerRemoveTransient(UUID uniqueId, String node);
 
     public boolean playerRemoveTransient(Player player, String node) {
         return playerRemoveTransient(player.getUniqueId(), node);
+    }
+
+    public boolean playerRemoveTransient(String name, String node) throws UnknownPlayerException {
+        return playerRemoveTransient(UUIDStore.getUniqueId(name), node);
     }
 
     public abstract boolean playerRemoveTransient(String world, UUID uniqueId, String node);
@@ -142,6 +166,10 @@ public abstract class TrunkPermissions implements TrunkHook {
 
     public boolean playerRemoveTransient(World world, Player player, String node) {
         return playerRemoveTransient(world.getName(), player.getUniqueId(), node);
+    }
+
+    public boolean playerRemoveTransient(String world, String name, String node) throws UnknownPlayerException {
+        return playerRemoveTransient(world, UUIDStore.getUniqueId(name), node);
     }
 
     public abstract boolean hasGroupSupport();

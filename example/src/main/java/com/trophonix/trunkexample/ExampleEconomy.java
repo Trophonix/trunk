@@ -9,13 +9,13 @@ import java.util.UUID;
 /**
  * Created by Lucas on 4/13/17.
  */
-public class ExampleEconomyHook extends TrunkEconomy {
+public class ExampleEconomy extends TrunkEconomy {
 
     private final DecimalFormat decimalFormat = new DecimalFormat("0.##");
 
     private final TrunkExample main;
 
-    public ExampleEconomyHook(TrunkExample main) {
+    public ExampleEconomy(TrunkExample main) {
         super(main);
         this.main = main;
     }

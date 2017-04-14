@@ -4,6 +4,7 @@ import com.google.common.collect.Iterables;
 import com.trophonix.trunk.Trunk;
 import com.trophonix.trunk.UUIDStore;
 import com.trophonix.trunk.api.economy.TrunkEconomy;
+import com.trophonix.trunk.exceptions.UnknownPlayerException;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.OfflinePlayer;
@@ -60,9 +61,14 @@ public class VaultEconomyWrapper implements Economy {
 
     @Override
     public boolean hasAccount(String player) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        return uniqueId != null && wrapped.hasAccount(uniqueId);
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            return uniqueId != null && wrapped.hasAccount(uniqueId);
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
+        }
+        return false;
     }
 
     @Override
@@ -72,9 +78,14 @@ public class VaultEconomyWrapper implements Economy {
 
     @Override
     public boolean hasAccount(String player, String world) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        return uniqueId != null && wrapped.hasAccount(uniqueId, world);
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            return uniqueId != null && wrapped.hasAccount(uniqueId, world);
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
+        }
+        return false;
     }
 
     @Override
@@ -84,12 +95,14 @@ public class VaultEconomyWrapper implements Economy {
 
     @Override
     public double getBalance(String player) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return 0;
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            return wrapped.getBalance(uniqueId).doubleValue();
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
         }
-        return wrapped.getBalance(uniqueId).doubleValue();
+        return 0;
     }
 
     @Override
@@ -99,12 +112,14 @@ public class VaultEconomyWrapper implements Economy {
 
     @Override
     public double getBalance(String player, String world) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return 0;
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            return wrapped.getBalance(uniqueId, world).doubleValue();
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
         }
-        return wrapped.getBalance(uniqueId, world).doubleValue();
+        return 0;
     }
 
     @Override
@@ -114,9 +129,14 @@ public class VaultEconomyWrapper implements Economy {
 
     @Override
     public boolean has(String player, double amount) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        return uniqueId != null && wrapped.has(uniqueId, amount);
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            return uniqueId != null && wrapped.has(uniqueId, amount);
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
+        }
+        return false;
     }
 
     @Override
@@ -126,9 +146,14 @@ public class VaultEconomyWrapper implements Economy {
 
     @Override
     public boolean has(String player, String world, double amount) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        return uniqueId != null && wrapped.has(uniqueId, amount, world);
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            return uniqueId != null && wrapped.has(uniqueId, amount, world);
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
+        }
+        return false;
     }
 
     @Override
@@ -138,12 +163,14 @@ public class VaultEconomyWrapper implements Economy {
 
     @Override
     public EconomyResponse withdrawPlayer(String player, double amount) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return new EconomyResponse(0, 0, EconomyResponse.ResponseType.FAILURE, "Outdated methods!");
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            return wrapped.withdraw(uniqueId, amount).toVault();
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
         }
-        return wrapped.withdraw(uniqueId, amount).toVault();
+        return new EconomyResponse(0, 0, EconomyResponse.ResponseType.FAILURE, "Outdated methods!");
     }
 
     @Override
@@ -153,12 +180,14 @@ public class VaultEconomyWrapper implements Economy {
 
     @Override
     public EconomyResponse withdrawPlayer(String player, String world, double amount) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return new EconomyResponse(0, 0, EconomyResponse.ResponseType.FAILURE, "Outdated methods!");
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            return wrapped.withdraw(uniqueId, amount, world).toVault();
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
         }
-        return wrapped.withdraw(uniqueId, amount, world).toVault();
+        return new EconomyResponse(0, 0, EconomyResponse.ResponseType.FAILURE, "Outdated methods!");
     }
 
     @Override
@@ -168,12 +197,14 @@ public class VaultEconomyWrapper implements Economy {
 
     @Override
     public EconomyResponse depositPlayer(String player, double amount) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return new EconomyResponse(0, 0, EconomyResponse.ResponseType.FAILURE, "Outdated methods!");
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            return wrapped.deposit(uniqueId, amount).toVault();
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
         }
-        return wrapped.deposit(uniqueId, amount).toVault();
+        return new EconomyResponse(0, 0, EconomyResponse.ResponseType.FAILURE, "Outdated methods!");
     }
 
     @Override
@@ -183,12 +214,14 @@ public class VaultEconomyWrapper implements Economy {
 
     @Override
     public EconomyResponse depositPlayer(String player, String world, double amount) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return new EconomyResponse(0, 0, EconomyResponse.ResponseType.FAILURE, "Outdated methods!");
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            return wrapped.deposit(uniqueId, amount, world).toVault();
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
         }
-        return wrapped.deposit(uniqueId, amount, world).toVault();
+        return new EconomyResponse(0, 0, EconomyResponse.ResponseType.FAILURE, "Outdated methods!");
     }
 
     @Override
@@ -198,12 +231,14 @@ public class VaultEconomyWrapper implements Economy {
 
     @Override
     public EconomyResponse createBank(String bank, String player) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return new EconomyResponse(0, 0, EconomyResponse.ResponseType.FAILURE, "Outdated methods!");
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            return wrapped.createBank(uniqueId.toString()).toVault();
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
         }
-        return wrapped.createBank(uniqueId.toString()).toVault();
+        return new EconomyResponse(0, 0, EconomyResponse.ResponseType.FAILURE, "Outdated methods!");
     }
 
     @Override
@@ -238,12 +273,14 @@ public class VaultEconomyWrapper implements Economy {
 
     @Override
     public EconomyResponse isBankOwner(String bank, String player) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return new EconomyResponse(0, 0, EconomyResponse.ResponseType.FAILURE, "Outdated methods!");
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            return new EconomyResponse(0, 0, bank.equals(uniqueId.toString()) ? EconomyResponse.ResponseType.SUCCESS : EconomyResponse.ResponseType.FAILURE, "");
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
         }
-        return new EconomyResponse(0, 0, bank.equals(uniqueId.toString()) ? EconomyResponse.ResponseType.SUCCESS : EconomyResponse.ResponseType.FAILURE, "");
+        return new EconomyResponse(0, 0, EconomyResponse.ResponseType.FAILURE, "Outdated methods!");
     }
 
     @Override
@@ -253,12 +290,14 @@ public class VaultEconomyWrapper implements Economy {
 
     @Override
     public EconomyResponse isBankMember(String bank, String player) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        if (uniqueId == null) {
-            return new EconomyResponse(0, 0, EconomyResponse.ResponseType.FAILURE, "Outdated methods!");
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            return new EconomyResponse(0, 0, wrapped.hasBankAccount(uniqueId, bank) ? EconomyResponse.ResponseType.SUCCESS : EconomyResponse.ResponseType.FAILURE, "");
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
         }
-        return new EconomyResponse(0, 0, wrapped.hasBankAccount(uniqueId, bank) ? EconomyResponse.ResponseType.SUCCESS : EconomyResponse.ResponseType.FAILURE, "");
+        return new EconomyResponse(0, 0, EconomyResponse.ResponseType.FAILURE, "Outdated methods!");
     }
 
     @Override
@@ -273,9 +312,14 @@ public class VaultEconomyWrapper implements Economy {
 
     @Override
     public boolean createPlayerAccount(String player) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        return uniqueId != null && wrapped.hasAccount(uniqueId);
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            return uniqueId != null && wrapped.hasAccount(uniqueId);
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
+        }
+        return false;
     }
 
     @Override
@@ -285,9 +329,14 @@ public class VaultEconomyWrapper implements Economy {
 
     @Override
     public boolean createPlayerAccount(String player, String world) {
-        UUID uniqueId = UUIDStore.getUniqueId(player);
         Trunk.getInstance().getLogger().warning(wrapped.getPlugin().getName() + " is using outdated methods!");
-        return uniqueId != null && wrapped.createAccount(uniqueId, world).getResult().equals(com.trophonix.trunk.api.economy.EconomyResponse.Result.SUCCESS);
+        try {
+            UUID uniqueId = UUIDStore.getUniqueId(player);
+            return uniqueId != null && wrapped.createAccount(uniqueId, world).getResult().equals(com.trophonix.trunk.api.economy.EconomyResponse.Result.SUCCESS);
+        } catch (UnknownPlayerException ex) {
+            ex.printStackTrace();
+        }
+        return false;
     }
 
     @Override

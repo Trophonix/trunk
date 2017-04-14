@@ -2,6 +2,7 @@ package com.trophonix.trunk.api.economy;
 
 import com.trophonix.trunk.api.TrunkHook;
 import com.trophonix.trunk.UUIDStore;
+import com.trophonix.trunk.exceptions.UnknownPlayerException;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.Plugin;
 
@@ -71,6 +72,16 @@ public abstract class TrunkEconomy implements TrunkHook {
     }
 
     /**
+     * Check whether a player has an account (saved balance)
+     * @param name The player's name
+     * @return Whether the player has an account
+     * @throws UnknownPlayerException If the player cannot be found
+     */
+    public boolean hasAccount(String name) throws UnknownPlayerException {
+        return hasAccount(UUIDStore.getUniqueId(name));
+    }
+
+    /**
      * Check whether a player has an account (saved balance) in a specific world
      * Returns whether they have a global account if not overridden
      * @param uniqueId The player's uuid
@@ -106,6 +117,16 @@ public abstract class TrunkEconomy implements TrunkHook {
      */
     public EconomyResponse createAccount(OfflinePlayer player) {
         return createAccount(player.getUniqueId());
+    }
+
+    /**
+     * Create an account for a player
+     * @param name The player's name
+     * @return A response
+     * @throws UnknownPlayerException If the player cannot be found
+     */
+    public EconomyResponse createAccount(String name) throws UnknownPlayerException {
+        return createAccount(UUIDStore.getUniqueId(name));
     }
 
     /**
@@ -150,8 +171,11 @@ public abstract class TrunkEconomy implements TrunkHook {
      * Get a player's global balance
      * @param name The player's name
      * @return The player's global balance
+     * @throws UnknownPlayerException If the player cannot be found
      */
-    public Number getBalance(String name) { return getBalance(UUIDStore.getUniqueIdIgnoreCase(name)); }
+    public Number getBalance(String name) throws UnknownPlayerException {
+        return getBalance(UUIDStore.getUniqueId(name));
+    }
 
     /**
      * Get a player's balance in a specific world
@@ -180,8 +204,11 @@ public abstract class TrunkEconomy implements TrunkHook {
      * @param name The player's name
      * @param world The world
      * @return The player's balance in the world
+     * @throws UnknownPlayerException If the player cannot be found
      */
-    public Number getBalance(String name, String world) { return getBalance(UUIDStore.getUniqueIdIgnoreCase(name), world); }
+    public Number getBalance(String name, String world) throws UnknownPlayerException {
+        return getBalance(UUIDStore.getUniqueId(name), world);
+    }
 
     /**
      * Set a player's global balance
@@ -206,9 +233,10 @@ public abstract class TrunkEconomy implements TrunkHook {
      * @param name The player's name
      * @param balance The player's new balance
      * @return A response
+     * @throws UnknownPlayerException If the player cannot be found
      */
-    public EconomyResponse setBalance(String name, Number balance) {
-        return setBalance(UUIDStore.getUniqueIdIgnoreCase(name), balance);
+    public EconomyResponse setBalance(String name, Number balance) throws UnknownPlayerException {
+        return setBalance(UUIDStore.getUniqueId(name), balance);
     }
 
     /**
@@ -242,9 +270,10 @@ public abstract class TrunkEconomy implements TrunkHook {
      * @param balance The player's new balance
      * @param world The world
      * @return A response
+     * @throws UnknownPlayerException If the player cannot be found
      */
-    public EconomyResponse setBalance(String name, Number balance, String world) {
-        return setBalance(UUIDStore.getUniqueIdIgnoreCase(name), balance, world);
+    public EconomyResponse setBalance(String name, Number balance, String world) throws UnknownPlayerException {
+        return setBalance(UUIDStore.getUniqueId(name), balance, world);
     }
 
     /**
@@ -270,8 +299,11 @@ public abstract class TrunkEconomy implements TrunkHook {
      * @param name The player's name
      * @param amount Amount to check
      * @return Whether the player has the amount
+     * @throws UnknownPlayerException If the player cannot be found
      */
-    public boolean has(String name, Number amount) { return has(UUIDStore.getUniqueIdIgnoreCase(name), amount); }
+    public boolean has(String name, Number amount) throws UnknownPlayerException {
+        return has(UUIDStore.getUniqueId(name), amount);
+    }
 
     /**
      * Check whether a player's balance in a specific world exceeds an amount
@@ -303,9 +335,10 @@ public abstract class TrunkEconomy implements TrunkHook {
      * @param amount Amount to check
      * @param world The world
      * @return Whether the player has the amount
+     * @throws UnknownPlayerException If the player cannot be found
      */
-    public boolean has(String name, Number amount, String world) {
-        return has(UUIDStore.getUniqueIdIgnoreCase(name), amount, world);
+    public boolean has(String name, Number amount, String world) throws UnknownPlayerException {
+        return has(UUIDStore.getUniqueId(name), amount, world);
     }
 
     /**
@@ -331,9 +364,10 @@ public abstract class TrunkEconomy implements TrunkHook {
      * @param name The player's name
      * @param amount Amount to deposit
      * @return A response
+     * @throws UnknownPlayerException If the player cannot be found
      */
-    public EconomyResponse deposit(String name, Number amount) {
-        return deposit(UUIDStore.getUniqueIdIgnoreCase(name), amount);
+    public EconomyResponse deposit(String name, Number amount) throws UnknownPlayerException {
+        return deposit(UUIDStore.getUniqueId(name), amount);
     }
 
     /**
@@ -365,9 +399,10 @@ public abstract class TrunkEconomy implements TrunkHook {
      * @param amount Amount to deposit
      * @param world The world
      * @return A response
+     * @throws UnknownPlayerException If the player cannot be found
      */
-    public EconomyResponse deposit(String name, Number amount, String world) {
-        return deposit(UUIDStore.getUniqueIdIgnoreCase(name), amount, world);
+    public EconomyResponse deposit(String name, Number amount, String world) throws UnknownPlayerException {
+        return deposit(UUIDStore.getUniqueId(name), amount, world);
     }
 
     /**
@@ -418,9 +453,10 @@ public abstract class TrunkEconomy implements TrunkHook {
      * @param amount Amount to withdraw
      * @param world The world
      * @return A response
+     * @throws UnknownPlayerException If the player cannot be found
      */
-    public EconomyResponse withdraw(String name, Number amount, String world) {
-        return withdraw(UUIDStore.getUniqueIdIgnoreCase(name), amount, world);
+    public EconomyResponse withdraw(String name, Number amount, String world) throws UnknownPlayerException {
+        return withdraw(UUIDStore.getUniqueId(name), amount, world);
     }
 
     /**
@@ -517,9 +553,10 @@ public abstract class TrunkEconomy implements TrunkHook {
      * @param name The player's name
      * @param bank The bank
      * @return Whether the player has an account in the bank
+     * @throws UnknownPlayerException If the player cannot be found
      */
-    public boolean hasBankAccount(String name, String bank) {
-        return hasBankAccount(UUIDStore.getUniqueIdIgnoreCase(name), bank);
+    public boolean hasBankAccount(String name, String bank) throws UnknownPlayerException {
+        return hasBankAccount(UUIDStore.getUniqueId(name), bank);
     }
 
     /**
@@ -549,9 +586,10 @@ public abstract class TrunkEconomy implements TrunkHook {
      * @param name The player's name
      * @param bank The bank
      * @return A response
+     * @throws UnknownPlayerException If the player cannot be found
      */
-    public EconomyResponse createBankAccount(String name, String bank) {
-        return createBankAccount(UUIDStore.getUniqueIdIgnoreCase(name), bank);
+    public EconomyResponse createBankAccount(String name, String bank) throws UnknownPlayerException {
+        return createBankAccount(UUIDStore.getUniqueId(name), bank);
     }
 
     /**
@@ -582,9 +620,10 @@ public abstract class TrunkEconomy implements TrunkHook {
      * @param name The player's name
      * @param bank The bank
      * @return A response
+     * @throws UnknownPlayerException If the player cannot be found
      */
-    public EconomyResponse deleteBankAccount(String name, String bank) {
-        return deleteBankAccount(UUIDStore.getUniqueIdIgnoreCase(name), bank);
+    public EconomyResponse deleteBankAccount(String name, String bank) throws UnknownPlayerException {
+        return deleteBankAccount(UUIDStore.getUniqueId(name), bank);
     }
 
     /**
@@ -615,9 +654,10 @@ public abstract class TrunkEconomy implements TrunkHook {
      * @param name The player's name
      * @param bank The bank
      * @return The player's balance in the bank
+     * @throws UnknownPlayerException If the player cannot be found
      */
-    public Number getBankAccountBalance(String name, String bank) {
-        return getBankAccountBalance(UUIDStore.getUniqueIdIgnoreCase(name), bank);
+    public Number getBankAccountBalance(String name, String bank) throws UnknownPlayerException {
+        return getBankAccountBalance(UUIDStore.getUniqueId(name), bank);
     }
 
     /**
@@ -651,9 +691,10 @@ public abstract class TrunkEconomy implements TrunkHook {
      * @param bank The bank
      * @param balance The new balance
      * @return A response
+     * @throws UnknownPlayerException If the player cannot be found
      */
-    public EconomyResponse setBankAccountBalance(String name, String bank, Number balance) {
-        return setBankAccountBalance(UUIDStore.getUniqueIdIgnoreCase(name), bank, balance);
+    public EconomyResponse setBankAccountBalance(String name, String bank, Number balance) throws UnknownPlayerException {
+        return setBankAccountBalance(UUIDStore.getUniqueId(name), bank, balance);
     }
 
     /**
@@ -687,9 +728,10 @@ public abstract class TrunkEconomy implements TrunkHook {
      * @param bank The bank
      * @param amount The amount
      * @return Whether the player's balance in the bank exceeds the amount
+     * @throws UnknownPlayerException If the player cannot be found
      */
-    public boolean bankAccountHas(String name, String bank, Number amount) {
-        return bankAccountHas(UUIDStore.getUniqueIdIgnoreCase(name), bank, amount);
+    public boolean bankAccountHas(String name, String bank, Number amount) throws UnknownPlayerException {
+        return bankAccountHas(UUIDStore.getUniqueId(name), bank, amount);
     }
 
     /**
@@ -723,9 +765,10 @@ public abstract class TrunkEconomy implements TrunkHook {
      * @param bank The bank
      * @param amount Amount to deposit
      * @return A response
+     * @throws UnknownPlayerException If the player cannot be found
      */
-    public EconomyResponse depositBankAccount(String name, String bank, Number amount) {
-        return depositBankAccount(UUIDStore.getUniqueIdIgnoreCase(name), bank, amount);
+    public EconomyResponse depositBankAccount(String name, String bank, Number amount) throws UnknownPlayerException {
+        return depositBankAccount(UUIDStore.getUniqueId(name), bank, amount);
     }
 
     /**
@@ -759,9 +802,10 @@ public abstract class TrunkEconomy implements TrunkHook {
      * @param bank The bank
      * @param amount Amount to withdraw
      * @return A response
+     * @throws UnknownPlayerException If the player cannot be found
      */
-    public EconomyResponse withdrawBankAccount(String name, String bank, Number amount) {
-        return withdrawBankAccount(UUIDStore.getUniqueIdIgnoreCase(name), bank, amount);
+    public EconomyResponse withdrawBankAccount(String name, String bank, Number amount) throws UnknownPlayerException {
+        return withdrawBankAccount(UUIDStore.getUniqueId(name), bank, amount);
     }
 
 }

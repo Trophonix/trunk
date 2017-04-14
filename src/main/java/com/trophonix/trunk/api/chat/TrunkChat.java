@@ -1,8 +1,12 @@
 package com.trophonix.trunk.api.chat;
 
 import com.trophonix.trunk.Trunk;
+import com.trophonix.trunk.UUIDStore;
 import com.trophonix.trunk.api.TrunkHook;
 import com.trophonix.trunk.api.permissions.TrunkPermissions;
+import com.trophonix.trunk.exceptions.UnknownPlayerException;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.plugin.Plugin;
@@ -20,7 +24,7 @@ public abstract class TrunkChat implements TrunkHook {
 
     public TrunkChat(Plugin plugin) {
         this.plugin = plugin;
-        this.perms = Trunk.getHook(TrunkPermissions.class);
+        this.perms = Trunk.getInstance().getHook(TrunkPermissions.class);
     }
 
     @Override
@@ -28,7 +32,19 @@ public abstract class TrunkChat implements TrunkHook {
         return plugin;
     }
 
-    public abstract String getPrefix(String world, UUID uniqueId);
+    public abstract String getPrefix(UUID uniqueId);
+
+    public String getPrefix(OfflinePlayer player) {
+        return getPrefix(player.getUniqueId());
+    }
+
+    public String getPrefix(String name) throws UnknownPlayerException {
+        return getPrefix(UUIDStore.getUniqueId(name));
+    }
+
+    public String getPrefix(String world, UUID uniqueId) {
+        return getPrefix(uniqueId);
+    }
 
     public String getPrefix(String world, OfflinePlayer player) {
         return getPrefix(world, player.getUniqueId());
@@ -42,7 +58,23 @@ public abstract class TrunkChat implements TrunkHook {
         return getPrefix(world.getName(), player.getUniqueId());
     }
 
-    public abstract void setPrefix(String world, UUID uniqueId, String prefix);
+    public String getPrefix(String world, String name) throws UnknownPlayerException {
+        return getPrefix(world, UUIDStore.getUniqueId(name));
+    }
+
+    public abstract void setPrefix(UUID uniqueId, String prefix);
+
+    public void setPrefix(OfflinePlayer player, String prefix) {
+        setPrefix(player.getUniqueId(), prefix);
+    }
+
+    public void setPrefix(String name, String prefix) throws UnknownPlayerException {
+        setPrefix(UUIDStore.getUniqueId(name), prefix);
+    }
+
+    public void setPrefix(String world, UUID uniqueId, String prefix) {
+        setPrefix(uniqueId, prefix);
+    }
 
     public void setPrefix(String world, OfflinePlayer player, String prefix) {
         setPrefix(world, player.getUniqueId(), prefix);
@@ -56,7 +88,23 @@ public abstract class TrunkChat implements TrunkHook {
         setPrefix(world.getName(), player.getUniqueId(), prefix);
     }
 
-    public abstract String getSuffix(String world, UUID uniqueId);
+    public void setPrefix(String world, String name, String prefix) throws UnknownPlayerException {
+        setPrefix(world, UUIDStore.getUniqueId(name), prefix);
+    }
+
+    public abstract String getSuffix(UUID uniqueId);
+
+    public String getSuffix(OfflinePlayer player) {
+        return getSuffix(player.getUniqueId());
+    }
+
+    public String getSuffix(String name) throws UnknownPlayerException {
+        return getSuffix(UUIDStore.getUniqueId(name));
+    }
+
+    public String getSuffix(String world, UUID uniqueId) {
+        return getSuffix(uniqueId);
+    }
 
     public String getSuffix(String world, OfflinePlayer player) {
         return getSuffix(world, player.getUniqueId());
@@ -70,7 +118,23 @@ public abstract class TrunkChat implements TrunkHook {
         return getSuffix(world.getName(), player.getUniqueId());
     }
 
-    public abstract void setSuffix(String world, UUID uniqueId, String suffix);
+    public String getSuffix(String world, String name) throws UnknownPlayerException {
+        return getSuffix(world, UUIDStore.getUniqueId(name));
+    }
+
+    public abstract void setSuffix(UUID uniqueId, String suffix);
+
+    public void setSuffix(OfflinePlayer player, String suffix) {
+        setSuffix(player.getUniqueId(), suffix);
+    }
+
+    public void setSuffix(String name, String suffix) throws UnknownPlayerException {
+        setSuffix(UUIDStore.getUniqueId(name), suffix);
+    }
+
+    public void setSuffix(String world, UUID uniqueId, String suffix) {
+        setSuffix(uniqueId, suffix);
+    }
 
     public void setSuffix(String world, OfflinePlayer player, String suffix) {
         setSuffix(world, player.getUniqueId(), suffix);
@@ -82,6 +146,22 @@ public abstract class TrunkChat implements TrunkHook {
 
     public void setSuffix(World world, OfflinePlayer player, String suffix) {
         setSuffix(world.getName(), player.getUniqueId(), suffix);
+    }
+
+    public void setSuffix(String world, String name, String suffix) throws UnknownPlayerException {
+        setSuffix(world, UUIDStore.getUniqueId(name), suffix);
+    }
+
+    public Iterable<String> getGroups(UUID uniqueId) {
+        return perms.getPlayerGroups(uniqueId);
+    }
+
+    public Iterable<String> getGroups(OfflinePlayer player) {
+        return perms.getPlayerGroups(player);
+    }
+
+    public Iterable<String> getGroups(String name) throws UnknownPlayerException {
+        return perms.getPlayerGroups(UUIDStore.getUniqueId(name));
     }
 
     public Iterable<String> getGroups(String world, UUID uniqueId) {
@@ -100,6 +180,22 @@ public abstract class TrunkChat implements TrunkHook {
         return perms.getPlayerGroups(world, player);
     }
 
+    public Iterable<String> getGroups(String world, String name) throws UnknownPlayerException {
+        return perms.getPlayerGroups(world, UUIDStore.getUniqueId(name));
+    }
+
+    public String getPrimaryGroup(UUID uniqueId) {
+        return perms.getPrimaryGroup(uniqueId);
+    }
+
+    public String getPrimaryGroup(OfflinePlayer player) {
+        return perms.getPrimaryGroup(player.getUniqueId());
+    }
+
+    public String getPrimaryGroup(String name) throws UnknownPlayerException {
+        return perms.getPrimaryGroup(UUIDStore.getUniqueId(name));
+    }
+
     public String getPrimaryGroup(String world, UUID uniqueId) {
         return perms.getPrimaryGroup(world, uniqueId);
     }
@@ -114,6 +210,22 @@ public abstract class TrunkChat implements TrunkHook {
 
     public String getPrimaryGroup(World world, OfflinePlayer player) {
         return perms.getPrimaryGroup(world, player);
+    }
+
+    public String getPrimaryGroup(String world, String name) throws UnknownPlayerException {
+        return perms.getPrimaryGroup(world, UUIDStore.getUniqueId(name));
+    }
+
+    public boolean playerInGroup(UUID uniqueId, String group) {
+        return perms.playerInGroup(uniqueId, group);
+    }
+
+    public boolean playerInGroup(OfflinePlayer player, String group) {
+        return perms.playerInGroup(player.getUniqueId(), group);
+    }
+
+    public boolean playerInGroup(String name, String group) throws UnknownPlayerException {
+        return perms.playerInGroup(UUIDStore.getUniqueId(name), group);
     }
 
     public boolean playerInGroup(String world, UUID uniqueId, String group) {
@@ -132,28 +244,32 @@ public abstract class TrunkChat implements TrunkHook {
         return perms.playerInGroup(world, player, group);
     }
 
-    public abstract String getGroupPrefix(String world, String group);
-
-    public String getGroupPrefix(World world, String group) {
-        return getGroupPrefix(world.getName(), group);
+    public boolean playerInGroup(String world, String name, String group) throws UnknownPlayerException {
+        return perms.playerInGroup(world, UUIDStore.getUniqueId(name), group);
     }
 
-    public abstract void setGroupPrefix(String world, String group, String prefix);
+    public abstract String getGroupPrefix(String group);
 
-    public void setGroupPrefix(World world, String group, String prefix) {
-        setGroupPrefix(world.getName(), group, prefix);
+    public String getGroupPrefix(String world, String group) {
+        return getGroupPrefix(group);
     }
 
-    public abstract String getGroupSuffix(String world, String group);
+    public abstract void setGroupPrefix(String group, String prefix);
 
-    public String getGroupSuffix(World world, String group) {
-        return getGroupSuffix(world.getName(), group);
+    public void setGroupPrefix(String world, String group, String prefix) {
+        setGroupPrefix(group, prefix);
     }
 
-    public abstract void setGroupSuffix(String world, String group, String suffix);
+    public abstract String getGroupSuffix(String group);
 
-    public void setGroupSuffix(World world, String group, String suffix) {
-        setGroupSuffix(world.getName(), group, suffix);
+    public String getGroupSuffix(String world, String group) {
+        return getGroupSuffix(group);
+    }
+
+    public abstract void setGroupSuffix(String group, String suffix);
+
+    public void setGroupSuffix(String world, String group, String suffix) {
+        setGroupSuffix(group, suffix);
     }
 
     public Iterable<String> getGroups() {
