@@ -5,8 +5,6 @@ import com.trophonix.trunk.UUIDStore;
 import com.trophonix.trunk.api.TrunkHook;
 import com.trophonix.trunk.api.permissions.TrunkPermissions;
 import com.trophonix.trunk.exceptions.UnknownPlayerException;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.plugin.Plugin;
