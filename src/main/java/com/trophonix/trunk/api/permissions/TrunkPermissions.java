@@ -56,7 +56,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param player The player
      * @param node The permission node
      * @return Whether the player has the permission
-     * @see TrunkPermissions#playerHas(UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerHas(UUID, String) Redirects to this method by default
      */
     public boolean playerHas(Player player, String node) {
         return playerHas(player.getUniqueId(), node);
@@ -68,7 +68,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param node The permission node
      * @return Whether the player has the permission
      * @throws UnknownPlayerException If the player cannot be found
-     * @see TrunkPermissions#playerHas(UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerHas(UUID, String) Redirects to this method by default
      * @see UUIDStore#getUniqueId(String)
      */
     public boolean playerHas(String name, String node) throws UnknownPlayerException {
@@ -90,7 +90,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param uniqueId The player's uuid
      * @param node The permission node
      * @return Whether the player has the permission in the world
-     * @see TrunkPermissions#playerHas(String, UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerHas(String, UUID, String) Redirects to this method by default
      */
     public boolean playerHas(World world, UUID uniqueId, String node) {
         return playerHas(world.getName(), uniqueId, node);
@@ -102,7 +102,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param player The player
      * @param node The permission node
      * @return Whether the player has the permission in the world
-     * @see TrunkPermissions#playerHas(String, UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerHas(String, UUID, String) Redirects to this method by default
      */
     public boolean playerHas(String world, Player player, String node) {
         return playerHas(world, player.getUniqueId(), node);
@@ -114,7 +114,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param player The player's uuid
      * @param node The permission node
      * @return Whether the player has the permission in the world
-     * @see TrunkPermissions#playerHas(String, UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerHas(String, UUID, String) Redirects to this method by default
      */
     public boolean playerHas(World world, Player player, String node) {
         return playerHas(world.getName(), player.getUniqueId(), node);
@@ -127,7 +127,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param node The permission node
      * @return Whether the player has the permission in the world
      * @throws UnknownPlayerException If the player cannot be found
-     * @see TrunkPermissions#playerHas(String, UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerHas(String, UUID, String) Redirects to this method by default
      * @see UUIDStore#getUniqueId(String)
      */
     public boolean playerHas(String world, String name, String node) throws UnknownPlayerException {
@@ -147,7 +147,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param player The player
      * @param node The permission node
      * @return Whether the addition was successful
-     * @see TrunkPermissions#playerAdd(UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerAdd(UUID, String) Redirects to this method by default
      */
     public boolean playerAdd(Player player, String node) {
         return playerAdd(player.getUniqueId(), node);
@@ -159,7 +159,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param node The permission node
      * @return Whether the addition was successful
      * @throws UnknownPlayerException If the player cannot be found
-     * @see TrunkPermissions#playerAdd(UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerAdd(UUID, String) Redirects to this method by default
      * @see UUIDStore#getUniqueId(String)
      */
     public boolean playerAdd(String name, String node) throws UnknownPlayerException {
@@ -172,7 +172,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param uniqueId The player's uuid
      * @param node The permission node
      * @return Whether the addition was successful
-     * @see TrunkPermissions#playerAdd(UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerAdd(UUID, String) Redirects to this method by default
      */
     public boolean playerAdd(String world, UUID uniqueId, String node) {
         return playerAdd(uniqueId, node);
@@ -184,7 +184,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param uniqueId The player's uuid
      * @param node The permission node
      * @return Whether the addition was successful
-     * @see TrunkPermissions#playerAdd(String, UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerAdd(String, UUID, String) Redirects to this method by default
      */
     public boolean playerAdd(World world, UUID uniqueId, String node) {
         return playerAdd(world.getName(), uniqueId, node);
@@ -196,7 +196,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param player The player
      * @param node The permission node
      * @return Whether the addition was successful
-     * @see TrunkPermissions#playerAdd(String, UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerAdd(String, UUID, String) Redirects to this method by default
      */
     public boolean playerAdd(String world, Player player, String node) {
         return playerAdd(world, player.getUniqueId(), node);
@@ -208,7 +208,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param player The player
      * @param node The permission node
      * @return Whether the addition was successful
-     * @see TrunkPermissions#playerAdd(String, UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerAdd(String, UUID, String) Redirects to this method by default
      */
     public boolean playerAdd(World world, Player player, String node) {
         return playerAdd(world.getName(), player.getUniqueId(), node);
@@ -221,7 +221,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param node The permission node
      * @return Whether the addition was successful
      * @throws UnknownPlayerException If the player cannot be found
-     * @see TrunkPermissions#playerAdd(String, UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerAdd(String, UUID, String) Redirects to this method by default
      * @see UUIDStore#getUniqueId(String)
      */
     public boolean playerAdd(String world, String name, String node) throws UnknownPlayerException {
@@ -241,7 +241,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param player The player
      * @param node The permission node
      * @return Whether the removal was successful
-     * @see TrunkPermissions#playerRemove(UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerRemove(UUID, String) Redirects to this method by default
      */
     public boolean playerRemove(Player player, String node) {
         return playerRemove(player.getUniqueId(), node);
@@ -252,7 +252,8 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param name The player's name
      * @param node The permission node
      * @return Whether the removal was successful
-     * @see TrunkPermissions#playerRemove(UUID, String) Redirects there by default
+     * @throws UnknownPlayerException If player cannot be found
+     * @see TrunkPermissions#playerRemove(UUID, String) Redirects to this method by default
      * @see UUIDStore#getUniqueId(String)
      */
     public boolean playerRemove(String name, String node) throws UnknownPlayerException {
@@ -265,7 +266,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param uniqueId The player's uuid
      * @param node The permission node
      * @return Whether the removal was successful
-     * @see TrunkPermissions#playerRemove(UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerRemove(UUID, String) Redirects to this method by default
      */
     public boolean playerRemove(String world, UUID uniqueId, String node) {
         return playerRemove(uniqueId, node);
@@ -277,7 +278,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param uniqueId The player's uuid
      * @param node The permission node
      * @return Whether the removal was successful
-     * @see TrunkPermissions#playerRemove(String, UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerRemove(String, UUID, String) Redirects to this method by default
      */
     public boolean playerRemove(World world, UUID uniqueId, String node) {
         return playerRemove(world.getName(), uniqueId, node);
@@ -289,7 +290,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param player The player
      * @param node The permission node
      * @return Whether the removal was successful
-     * @see TrunkPermissions#playerRemove(String, UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerRemove(String, UUID, String) Redirects to this method by default
      */
     public boolean playerRemove(String world, Player player, String node) {
         return playerRemove(world, player.getUniqueId(), node);
@@ -301,7 +302,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param player The player
      * @param node The permission node
      * @return Whether the removal was successful
-     * @see TrunkPermissions#playerRemove(String, UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerRemove(String, UUID, String) Redirects to this method by default
      */
     public boolean playerRemove(World world, Player player, String node) {
         return playerAdd(world.getName(), player.getUniqueId(), node);
@@ -313,7 +314,8 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param name The player's name
      * @param node The permission node
      * @return Whether the removal was successful
-     * @see TrunkPermissions#playerRemove(String, UUID, String) Redirects there by default
+     * @throws UnknownPlayerException If player cannot be found
+     * @see TrunkPermissions#playerRemove(String, UUID, String) Redirects to this method by default
      * @see UUIDStore#getUniqueId(String)
      */
     public boolean playerRemove(String world, String name, String node) throws UnknownPlayerException {
@@ -333,7 +335,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param player The player
      * @param node The permission node
      * @return Whether the addition was successful
-     * @see TrunkPermissions#playerAddTransient(UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerAddTransient(UUID, String) Redirects to this method by default
      */
     public boolean playerAddTransient(Player player, String node) {
         return playerAddTransient(player.getUniqueId(), node);
@@ -345,7 +347,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param node The permission node
      * @return Whether the addition was successful
      * @throws UnknownPlayerException If the player cannot be found
-     * @see TrunkPermissions#playerAddTransient(UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerAddTransient(UUID, String) Redirects to this method by default
      * @see UUIDStore#getUniqueId(String)
      */
     public boolean playerAddTransient(String name, String node) throws UnknownPlayerException {
@@ -358,7 +360,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param uniqueId The player's uuid
      * @param node The permission node
      * @return Whether the addition was successful
-     * @see TrunkPermissions#playerAddTransient(UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerAddTransient(UUID, String) Redirects to this method by default
      */
     public boolean playerAddTransient(String world, UUID uniqueId, String node) {
         return playerAddTransient(uniqueId, node);
@@ -370,7 +372,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param uniqueId The player's uuid
      * @param node The permission node
      * @return Whether the addition was successful
-     * @see TrunkPermissions#playerAddTransient(String, UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerAddTransient(String, UUID, String) Redirects to this method by default
      */
     public boolean playerAddTransient(World world, UUID uniqueId, String node) {
         return playerAddTransient(world.getName(), uniqueId, node);
@@ -382,7 +384,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param player The player
      * @param node The permission node
      * @return Whether the addition was successful
-     * @see TrunkPermissions#playerAddTransient(String, UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerAddTransient(String, UUID, String) Redirects to this method by default
      */
     public boolean playerAddTransient(String world, Player player, String node) {
         return playerAddTransient(world, player.getUniqueId(), node);
@@ -394,7 +396,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param player The player
      * @param node The permission node
      * @return Whether the addition was successful
-     * @see TrunkPermissions#playerAddTransient(String, UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerAddTransient(String, UUID, String) Redirects to this method by default
      */
     public boolean playerAddTransient(World world, Player player, String node) {
         return playerAddTransient(world.getName(), player.getUniqueId(), node);
@@ -406,7 +408,8 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param name The player's name
      * @param node The permission node
      * @return Whether the addition was successful
-     * @see TrunkPermissions#playerAddTransient(String, UUID, String) Redirects there by default
+     * @throws UnknownPlayerException If player cannot be found
+     * @see TrunkPermissions#playerAddTransient(String, UUID, String) Redirects to this method by default
      * @see UUIDStore#getUniqueId(String)
      */
     public boolean playerAddTransient(String world, String name, String node) throws UnknownPlayerException {
@@ -426,7 +429,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param player The player
      * @param node The permission node
      * @return Whether the removal was successful
-     * @see TrunkPermissions#playerRemoveTransient(UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerRemoveTransient(UUID, String) Redirects to this method by default
      */
     public boolean playerRemoveTransient(Player player, String node) {
         return playerRemoveTransient(player.getUniqueId(), node);
@@ -438,7 +441,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param node The permission node
      * @return Whether the removal was successful
      * @throws UnknownPlayerException If the player cannot be found
-     * @see TrunkPermissions#playerRemoveTransient(UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerRemoveTransient(UUID, String) Redirects to this method by default
      * @see UUIDStore#getUniqueId(String)
      */
     public boolean playerRemoveTransient(String name, String node) throws UnknownPlayerException {
@@ -451,7 +454,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param uniqueId The player's uuid
      * @param node The permission node
      * @return Whether the removal was successful
-     * @see TrunkPermissions#playerRemoveTransient(UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerRemoveTransient(UUID, String) Redirects to this method by default
      */
     public boolean playerRemoveTransient(String world, UUID uniqueId, String node) {
         return playerRemove(uniqueId, node);
@@ -463,7 +466,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param uniqueId The player's uuid
      * @param node The permission node
      * @return Whether the removal was successful
-     * @see TrunkPermissions#playerRemoveTransient(UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerRemoveTransient(UUID, String) Redirects to this method by default
      */
     public boolean playerRemoveTransient(World world, UUID uniqueId, String node) {
         return playerRemoveTransient(world.getName(), uniqueId, node);
@@ -475,7 +478,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param player The player
      * @param node The permission node
      * @return Whether the removal was successful
-     * @see TrunkPermissions#playerRemoveTransient(UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerRemoveTransient(UUID, String) Redirects to this method by default
      */
     public boolean playerRemoveTransient(String world, Player player, String node) {
         return playerRemoveTransient(world, player.getUniqueId(), node);
@@ -487,7 +490,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param player The player
      * @param node The permission node
      * @return Whether the removal was successful
-     * @see TrunkPermissions#playerRemoveTransient(UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerRemoveTransient(UUID, String) Redirects to this method by default
      */
     public boolean playerRemoveTransient(World world, Player player, String node) {
         return playerRemoveTransient(world.getName(), player.getUniqueId(), node);
@@ -500,7 +503,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param node The permission node
      * @return Whether the removal was successful
      * @throws UnknownPlayerException If the player cannot be found
-     * @see TrunkPermissions#playerRemoveTransient(UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerRemoveTransient(UUID, String) Redirects to this method by default
      * @see UUIDStore#getUniqueId(String)
      */
     public boolean playerRemoveTransient(String world, String name, String node) throws UnknownPlayerException {
@@ -525,7 +528,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param player The player
      * @param group The group
      * @return Whether the addition was successful
-     * @see TrunkPermissions#playerAddGroup(UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerAddGroup(UUID, String) Redirects to this method by default
      */
     public boolean playerAddGroup(Player player, String group) {
         return playerAddGroup(player.getUniqueId(), group);
@@ -537,7 +540,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param group The group
      * @return Whether the addition was successful
      * @throws UnknownPlayerException If the player cannot be found
-     * @see TrunkPermissions#playerAddGroup(UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerAddGroup(UUID, String) Redirects to this method by default
      * @see UUIDStore#getUniqueId(String)
      */
     public boolean playerAddGroup(String name, String group) throws UnknownPlayerException {
@@ -550,7 +553,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param uniqueId The player's uuid
      * @param group The group
      * @return Whether the addition was successful
-     * @see TrunkPermissions#playerAddGroup(UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerAddGroup(UUID, String) Redirects to this method by default
      */
     public boolean playerAddGroup(String world, UUID uniqueId, String group) {
         return playerAddGroup(uniqueId, group);
@@ -562,7 +565,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param uniqueId The player's uuid
      * @param group The group
      * @return Whether the addition was successful
-     * @see TrunkPermissions#playerAddGroup(String, UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerAddGroup(String, UUID, String) Redirects to this method by default
      */
     public boolean playerAddGroup(World world, UUID uniqueId, String group) {
         return playerAddGroup(world.getName(), uniqueId, group);
@@ -574,7 +577,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param player The player
      * @param group The group
      * @return Whether the addition was successful
-     * @see TrunkPermissions#playerAddGroup(String, UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerAddGroup(String, UUID, String) Redirects to this method by default
      */
     public boolean playerAddGroup(String world, Player player, String group) {
         return playerAddGroup(world, player.getUniqueId(), group);
@@ -586,7 +589,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param player The player
      * @param group The group
      * @return Whether the addition was successful
-     * @see TrunkPermissions#playerAddGroup(String, UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerAddGroup(String, UUID, String) Redirects to this method by default
      */
     public boolean playerAddGroup(World world, Player player, String group) {
         return playerAddGroup(world.getName(), player.getUniqueId(), group);
@@ -599,7 +602,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param group The group
      * @return Whether the addition was successful
      * @throws UnknownPlayerException If the player cannot be found
-     * @see TrunkPermissions#playerAddGroup(String, UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerAddGroup(String, UUID, String) Redirects to this method by default
      * @see UUIDStore#getUniqueId(String)
      */
     public boolean playerAddGroup(String world, String name, String group) throws UnknownPlayerException {
@@ -619,7 +622,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param player The player
      * @param group The group
      * @return Whether the removal was successful
-     * @see TrunkPermissions#playerRemoveGroup(UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerRemoveGroup(UUID, String) Redirects to this method by default
      */
     public boolean playerRemoveGroup(Player player, String group) {
         return playerRemoveGroup(player.getUniqueId(), group);
@@ -631,7 +634,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param group The group
      * @return Whether the removal was successful
      * @throws UnknownPlayerException If the player cannot be found
-     * @see TrunkPermissions#playerRemoveGroup(UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerRemoveGroup(UUID, String) Redirects to this method by default
      * @see UUIDStore#getUniqueId(String)
      */
     public boolean playerRemoveGroup(String name, String group) throws UnknownPlayerException {
@@ -653,7 +656,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param uniqueId The player's uuid
      * @param group The group
      * @return Whether the removal was successful
-     * @see TrunkPermissions#playerRemoveGroup(String, UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerRemoveGroup(String, UUID, String) Redirects to this method by default
      */
     public boolean playerRemoveGroup(World world, UUID uniqueId, String group) {
         return playerRemoveGroup(world.getName(), uniqueId, group);
@@ -665,7 +668,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param player The player
      * @param group The group
      * @return Whether the removal was successful
-     * @see TrunkPermissions#playerRemoveGroup(String, UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerRemoveGroup(String, UUID, String) Redirects to this method by default
      */
     public boolean playerRemoveGroup(String world, Player player, String group) {
         return playerRemoveGroup(world, player.getUniqueId(), group);
@@ -677,7 +680,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param player The player
      * @param group The group
      * @return Whether the removal was successful
-     * @see TrunkPermissions#playerRemoveGroup(String, UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerRemoveGroup(String, UUID, String) Redirects to this method by default
      */
     public boolean playerRemoveGroup(World world, Player player, String group) {
         return playerRemoveGroup(world.getName(), player.getUniqueId(), group);
@@ -690,7 +693,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param group The group
      * @return Whether the removal was successful
      * @throws UnknownPlayerException If the player cannot be found
-     * @see TrunkPermissions#playerRemoveGroup(String, UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerRemoveGroup(String, UUID, String) Redirects to this method by default
      * @see UUIDStore#getUniqueId(String)
      */
     public boolean playerRemoveGroup(String world, String name, String group) throws UnknownPlayerException {
@@ -710,7 +713,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param player The player
      * @param group The group
      * @return Whether the player is in the group
-     * @see TrunkPermissions#playerInGroup(UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerInGroup(UUID, String) Redirects to this method by default
      */
     public boolean playerInGroup(Player player, String group) {
         return playerInGroup(player.getUniqueId(), group);
@@ -722,7 +725,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param group The group
      * @return Whether the player is in the group
      * @throws UnknownPlayerException If the player cannot be found
-     * @see TrunkPermissions#playerInGroup(UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerInGroup(UUID, String) Redirects to this method by default
      * @see UUIDStore#getUniqueId(String)
      */
     public boolean playerInGroup(String name, String group) throws UnknownPlayerException {
@@ -735,7 +738,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param uniqueId The player's uuid
      * @param group The group
      * @return Whether the player is in the group
-     * @see TrunkPermissions#playerInGroup(UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerInGroup(UUID, String) Redirects to this method by default
      */
     public boolean playerInGroup(String world, UUID uniqueId, String group) {
         return playerInGroup(uniqueId, group);
@@ -747,7 +750,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param uniqueId The player's uuid
      * @param group The group
      * @return Whether the player is in the group
-     * @see TrunkPermissions#playerInGroup(String, UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerInGroup(String, UUID, String) Redirects to this method by default
      */
     public boolean playerInGroup(World world, UUID uniqueId, String group) {
         return playerInGroup(world.getName(), uniqueId, group);
@@ -759,7 +762,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param player The player
      * @param group The group
      * @return Whether the player is in the group
-     * @see TrunkPermissions#playerInGroup(String, UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerInGroup(String, UUID, String) Redirects to this method by default
      */
     public boolean playerInGroup(String world, OfflinePlayer player, String group) {
         return playerInGroup(world, player.getUniqueId(), group);
@@ -771,7 +774,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param player The player
      * @param group The group
      * @return Whether the player is in the group
-     * @see TrunkPermissions#playerInGroup(String, UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerInGroup(String, UUID, String) Redirects to this method by default
      */
     public boolean playerInGroup(World world, OfflinePlayer player, String group) {
         return playerInGroup(world.getName(), player.getUniqueId(), group);
@@ -784,7 +787,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param group The group
      * @return Whether the player is in the group
      * @throws UnknownPlayerException If the player cannot be found
-     * @see TrunkPermissions#playerInGroup(String, UUID, String) Redirects there by default
+     * @see TrunkPermissions#playerInGroup(String, UUID, String) Redirects to this method by default
      * @see UUIDStore#getUniqueId(String)
      */
     public boolean playerInGroup(String world, String name, String group) throws UnknownPlayerException {
@@ -805,7 +808,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param group The group
      * @param node The permission node
      * @return Whether the group has the permission
-     * @see TrunkPermissions#groupHas(String, String) Redirects there by default
+     * @see TrunkPermissions#groupHas(String, String) Redirects to this method by default
      */
     public boolean groupHas(String world, String group, String node) {
         return groupHas(group, node);
@@ -817,7 +820,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param group The group
      * @param node The permission node
      * @return Whether the group has the permission
-     * @see TrunkPermissions#groupHas(String, String, String) Redirects there by default
+     * @see TrunkPermissions#groupHas(String, String, String) Redirects to this method by default
      */
     public boolean groupHas(World world, String group, String node) {
         return groupHas(world.getName(), group, node);
@@ -837,7 +840,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param group The group
      * @param node The permission node
      * @return Whether the addition was successful
-     * @see TrunkPermissions#groupAdd(String, String) Redirects there by default
+     * @see TrunkPermissions#groupAdd(String, String) Redirects to this method by default
      */
     public boolean groupAdd(String world, String group, String node) {
         return groupAdd(group, node);
@@ -849,7 +852,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param group The group
      * @param node The permission node
      * @return Whether the addition was successful
-     * @see TrunkPermissions#groupAdd(String, String, String) Redirects there by default
+     * @see TrunkPermissions#groupAdd(String, String, String) Redirects to this method by default
      */
     public boolean groupAdd(World world, String group, String node) {
         return groupAdd(world.getName(), group, node);
@@ -869,7 +872,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param group The group
      * @param node The permission node
      * @return Whether the removal was successful
-     * @see TrunkPermissions#groupRemove(String, String) Redirects there by default
+     * @see TrunkPermissions#groupRemove(String, String) Redirects to this method by default
      */
     public boolean groupRemove(String world, String group, String node) {
         return groupRemove(group, node);
@@ -881,7 +884,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param group The group
      * @param node The permission node
      * @return Whether the removal was successful
-     * @see TrunkPermissions#groupRemove(String, String, String) Redirects there by default
+     * @see TrunkPermissions#groupRemove(String, String, String) Redirects to this method by default
      */
     public boolean groupRemove(World world, String group, String node) {
         return groupRemove(world.getName(), group, node);
@@ -898,7 +901,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * Get a player's groups
      * @param player The player
      * @return The player's groups
-     * @see TrunkPermissions#getPlayerGroups(UUID) Redirects there by default
+     * @see TrunkPermissions#getPlayerGroups(UUID) Redirects to this method by default
      */
     public Iterable<String> getPlayerGroups(OfflinePlayer player) {
         return getPlayerGroups(player.getUniqueId());
@@ -909,7 +912,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param name The player's name
      * @return The player's groups
      * @throws UnknownPlayerException If the player cannot be found
-     * @see TrunkPermissions#getPlayerGroups(UUID) Redirects there by default
+     * @see TrunkPermissions#getPlayerGroups(UUID) Redirects to this method by default
      * @see UUIDStore#getUniqueId(String)
      */
     public Iterable<String> getPlayerGroups(String name) throws UnknownPlayerException {
@@ -921,7 +924,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param world The world
      * @param uniqueId The player's uuid
      * @return The player's groups
-     * @see TrunkPermissions#getPlayerGroups(UUID) Redirects there by default
+     * @see TrunkPermissions#getPlayerGroups(UUID) Redirects to this method by default
      */
     public Iterable<String> getPlayerGroups(String world, UUID uniqueId) {
         return getPlayerGroups(uniqueId);
@@ -932,7 +935,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param world The world
      * @param player The player
      * @return The player's groups
-     * @see TrunkPermissions#getPlayerGroups(String, UUID) Redirects there by default
+     * @see TrunkPermissions#getPlayerGroups(String, UUID) Redirects to this method by default
      */
     public Iterable<String> getPlayerGroups(String world, OfflinePlayer player) {
         return getPlayerGroups(world, player.getUniqueId());
@@ -943,7 +946,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param world The world
      * @param uniqueId The player's uuid
      * @return The player's groups
-     * @see TrunkPermissions#getPlayerGroups(String, UUID) Redirects there by default
+     * @see TrunkPermissions#getPlayerGroups(String, UUID) Redirects to this method by default
      */
     public Iterable<String> getPlayerGroups(World world, UUID uniqueId) {
         return getPlayerGroups(world.getName(), uniqueId);
@@ -954,7 +957,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param world The world
      * @param player The player's uuid
      * @return The player's groups
-     * @see TrunkPermissions#getPlayerGroups(String, UUID) Redirects there by default
+     * @see TrunkPermissions#getPlayerGroups(String, UUID) Redirects to this method by default
      */
     public Iterable<String> getPlayerGroups(World world, OfflinePlayer player) {
         return getPlayerGroups(world.getName(), player.getUniqueId());
@@ -966,7 +969,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param name The player's name
      * @return The player's groups
      * @throws UnknownPlayerException If the player cannot be found
-     * @see TrunkPermissions#getPlayerGroups(String, UUID) Redirects there by default
+     * @see TrunkPermissions#getPlayerGroups(String, UUID) Redirects to this method by default
      * @see UUIDStore#getUniqueId(String)
      */
     public Iterable<String> getPlayerGroups(String world, String name) throws UnknownPlayerException {
@@ -984,7 +987,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * Get a player's primary group
      * @param player The player
      * @return The player's primary group
-     * @see TrunkPermissions#getPrimaryGroup(UUID) Redirects there by default
+     * @see TrunkPermissions#getPrimaryGroup(UUID) Redirects to this method by default
      */
     public String getPrimaryGroup(OfflinePlayer player) {
         return getPrimaryGroup(player.getUniqueId());
@@ -995,7 +998,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param name The player's name
      * @return The player's primary group
      * @throws UnknownPlayerException If the player cannot be found
-     * @see TrunkPermissions#getPrimaryGroup(UUID) Redirects there by default
+     * @see TrunkPermissions#getPrimaryGroup(UUID) Redirects to this method by default
      * @see UUIDStore#getUniqueId(String)
      */
     public String getPrimaryGroup(String name) throws UnknownPlayerException {
@@ -1007,7 +1010,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param world The world
      * @param uniqueId The player's uuid
      * @return The player's primary group
-     * @see TrunkPermissions#getPrimaryGroup(UUID) Redirects there by default
+     * @see TrunkPermissions#getPrimaryGroup(UUID) Redirects to this method by default
      */
     public String getPrimaryGroup(String world, UUID uniqueId) {
         return getPrimaryGroup(uniqueId);
@@ -1018,7 +1021,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param world The world
      * @param uniqueId The player's uuid
      * @return The player's primary group
-     * @see TrunkPermissions#getPrimaryGroup(String, UUID) Redirects there by default
+     * @see TrunkPermissions#getPrimaryGroup(String, UUID) Redirects to this method by default
      */
     public String getPrimaryGroup(World world, UUID uniqueId) {
         return getPrimaryGroup(world.getName(), uniqueId);
@@ -1029,7 +1032,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param world The world
      * @param player The player
      * @return The player's primary group
-     * @see TrunkPermissions#getPrimaryGroup(String, UUID) Redirects there by default
+     * @see TrunkPermissions#getPrimaryGroup(String, UUID) Redirects to this method by default
      */
     public String getPrimaryGroup(String world, OfflinePlayer player) {
         return getPrimaryGroup(world, player.getUniqueId());
@@ -1040,7 +1043,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param world The world
      * @param player The player
      * @return The player's primary group
-     * @see TrunkPermissions#getPrimaryGroup(String, UUID) Redirects there by default
+     * @see TrunkPermissions#getPrimaryGroup(String, UUID) Redirects to this method by default
      */
     public String getPrimaryGroup(World world, OfflinePlayer player) {
         return getPrimaryGroup(world.getName(), player.getUniqueId());
@@ -1052,7 +1055,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @param name The player's name
      * @return The player's primary group
      * @throws UnknownPlayerException If the player cannot be found
-     * @see TrunkPermissions#getPrimaryGroup(String, UUID) Redirects there by default
+     * @see TrunkPermissions#getPrimaryGroup(String, UUID) Redirects to this method by default
      * @see UUIDStore#getUniqueId(String)
      */
     public String getPrimaryGroup(String world, String name) throws UnknownPlayerException {
@@ -1069,7 +1072,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * Get all the groups in a specific world
      * @param world The world
      * @return All the groups
-     * @see TrunkPermissions#getGroups() Redirects there by default
+     * @see TrunkPermissions#getGroups() Redirects to this method by default
      */
     public Iterable<String> getGroups(String world) {
         return getGroups();
@@ -1079,7 +1082,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * Get all the groups in a specific world
      * @param world The world
      * @return All the groups
-     * @see TrunkPermissions#getGroups(String) Redirects there by default
+     * @see TrunkPermissions#getGroups(String) Redirects to this method by default
      */
     public Iterable<String> getGroups(World world) {
         return getGroups(world.getName());
