@@ -18,7 +18,7 @@ public class ExampleChat extends TrunkChat {
 
     @Override
     public String getPrefix(UUID uniqueId) {
-        return main.getConfig().getString(playerString(uniqueId, "prefix"));
+        return main.getConfig().getString(playerString(uniqueId, "prefix"), "");
     }
 
     @Override
@@ -28,7 +28,7 @@ public class ExampleChat extends TrunkChat {
 
     @Override
     public String getSuffix(UUID uniqueId) {
-        return main.getConfig().getString(playerString(uniqueId, "suffix"));
+        return main.getConfig().getString(playerString(uniqueId, "suffix"), "");
     }
 
     @Override
@@ -88,7 +88,7 @@ public class ExampleChat extends TrunkChat {
 
     @Override
     public String getStringPlayerOption(String world, UUID uniqueId, String node, String defaultValue) {
-        return null;
+        return "";
     }
 
     @Override
@@ -128,7 +128,7 @@ public class ExampleChat extends TrunkChat {
 
     @Override
     public String getStringGroupOption(String world, String group, String node, String defaultValue) {
-        return null;
+        return "";
     }
 
     @Override

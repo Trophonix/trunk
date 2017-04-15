@@ -4,13 +4,5 @@ author: Trophonix
 main: com.trophonix.trunkexample.TrunkExample
 depend: [Trunk]
 commands:
-  balance:
-    description: "Check your balance"
-    aliases: [bal,money]
-  pay:
-    description: "Pay someone money"
-    aliases: [givemoney]
-  ecoset:
-    description: "Set a player's balance"
   prefix:
     description: "Set a player's prefix"

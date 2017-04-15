@@ -148,22 +148,22 @@ public class ExamplePermissions extends TrunkPermissions {
 
     @Override
     public Iterable<String> getPlayerGroups(UUID uniqueId) {
-        return null;
+        return Collections.singleton("default");
     }
 
     @Override
     public Iterable<String> getPlayerGroups(String world, UUID uniqueId) {
-        return null;
+        return Collections.singleton("default");
     }
 
     @Override
     public String getPrimaryGroup(UUID uniqueId) {
-        return null;
+        return "default";
     }
 
     @Override
     public String getPrimaryGroup(String world, UUID uniqueId) {
-        return null;
+        return "default";
     }
 
     @Override

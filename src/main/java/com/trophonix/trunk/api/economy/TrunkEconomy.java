@@ -16,6 +16,10 @@ public abstract class TrunkEconomy implements TrunkHook {
 
     private final Plugin plugin;
 
+    /**
+     * TrunkEconomy constructor
+     * @param plugin The registering plugin
+     */
     public TrunkEconomy(Plugin plugin) {
         this.plugin = plugin;
     }
