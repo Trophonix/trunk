@@ -58,7 +58,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @return Whether the player has the permission
      * @see TrunkPermissions#playerHas(UUID, String) Redirects to this method by default
      */
-    public boolean playerHas(Player player, String node) {
+    public boolean playerHas(OfflinePlayer player, String node) {
         return playerHas(player.getUniqueId(), node);
     }
 
@@ -104,7 +104,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @return Whether the player has the permission in the world
      * @see TrunkPermissions#playerHas(String, UUID, String) Redirects to this method by default
      */
-    public boolean playerHas(String world, Player player, String node) {
+    public boolean playerHas(String world, OfflinePlayer player, String node) {
         return playerHas(world, player.getUniqueId(), node);
     }
 
@@ -116,7 +116,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @return Whether the player has the permission in the world
      * @see TrunkPermissions#playerHas(String, UUID, String) Redirects to this method by default
      */
-    public boolean playerHas(World world, Player player, String node) {
+    public boolean playerHas(World world, OfflinePlayer player, String node) {
         return playerHas(world.getName(), player.getUniqueId(), node);
     }
 
@@ -149,7 +149,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @return Whether the addition was successful
      * @see TrunkPermissions#playerAdd(UUID, String) Redirects to this method by default
      */
-    public boolean playerAdd(Player player, String node) {
+    public boolean playerAdd(OfflinePlayer player, String node) {
         return playerAdd(player.getUniqueId(), node);
     }
 
@@ -198,7 +198,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @return Whether the addition was successful
      * @see TrunkPermissions#playerAdd(String, UUID, String) Redirects to this method by default
      */
-    public boolean playerAdd(String world, Player player, String node) {
+    public boolean playerAdd(String world, OfflinePlayer player, String node) {
         return playerAdd(world, player.getUniqueId(), node);
     }
 
@@ -210,7 +210,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @return Whether the addition was successful
      * @see TrunkPermissions#playerAdd(String, UUID, String) Redirects to this method by default
      */
-    public boolean playerAdd(World world, Player player, String node) {
+    public boolean playerAdd(World world, OfflinePlayer player, String node) {
         return playerAdd(world.getName(), player.getUniqueId(), node);
     }
 
@@ -243,7 +243,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @return Whether the removal was successful
      * @see TrunkPermissions#playerRemove(UUID, String) Redirects to this method by default
      */
-    public boolean playerRemove(Player player, String node) {
+    public boolean playerRemove(OfflinePlayer player, String node) {
         return playerRemove(player.getUniqueId(), node);
     }
 
@@ -292,7 +292,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @return Whether the removal was successful
      * @see TrunkPermissions#playerRemove(String, UUID, String) Redirects to this method by default
      */
-    public boolean playerRemove(String world, Player player, String node) {
+    public boolean playerRemove(String world, OfflinePlayer player, String node) {
         return playerRemove(world, player.getUniqueId(), node);
     }
 
@@ -304,7 +304,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @return Whether the removal was successful
      * @see TrunkPermissions#playerRemove(String, UUID, String) Redirects to this method by default
      */
-    public boolean playerRemove(World world, Player player, String node) {
+    public boolean playerRemove(World world, OfflinePlayer player, String node) {
         return playerAdd(world.getName(), player.getUniqueId(), node);
     }
 
@@ -337,7 +337,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @return Whether the addition was successful
      * @see TrunkPermissions#playerAddTransient(UUID, String) Redirects to this method by default
      */
-    public boolean playerAddTransient(Player player, String node) {
+    public boolean playerAddTransient(OfflinePlayer player, String node) {
         return playerAddTransient(player.getUniqueId(), node);
     }
 
@@ -386,7 +386,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @return Whether the addition was successful
      * @see TrunkPermissions#playerAddTransient(String, UUID, String) Redirects to this method by default
      */
-    public boolean playerAddTransient(String world, Player player, String node) {
+    public boolean playerAddTransient(String world, OfflinePlayer player, String node) {
         return playerAddTransient(world, player.getUniqueId(), node);
     }
 
@@ -398,7 +398,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @return Whether the addition was successful
      * @see TrunkPermissions#playerAddTransient(String, UUID, String) Redirects to this method by default
      */
-    public boolean playerAddTransient(World world, Player player, String node) {
+    public boolean playerAddTransient(World world, OfflinePlayer player, String node) {
         return playerAddTransient(world.getName(), player.getUniqueId(), node);
     }
 
@@ -431,7 +431,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @return Whether the removal was successful
      * @see TrunkPermissions#playerRemoveTransient(UUID, String) Redirects to this method by default
      */
-    public boolean playerRemoveTransient(Player player, String node) {
+    public boolean playerRemoveTransient(OfflinePlayer player, String node) {
         return playerRemoveTransient(player.getUniqueId(), node);
     }
 
@@ -480,7 +480,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @return Whether the removal was successful
      * @see TrunkPermissions#playerRemoveTransient(UUID, String) Redirects to this method by default
      */
-    public boolean playerRemoveTransient(String world, Player player, String node) {
+    public boolean playerRemoveTransient(String world, OfflinePlayer player, String node) {
         return playerRemoveTransient(world, player.getUniqueId(), node);
     }
 
@@ -492,7 +492,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @return Whether the removal was successful
      * @see TrunkPermissions#playerRemoveTransient(UUID, String) Redirects to this method by default
      */
-    public boolean playerRemoveTransient(World world, Player player, String node) {
+    public boolean playerRemoveTransient(World world, OfflinePlayer player, String node) {
         return playerRemoveTransient(world.getName(), player.getUniqueId(), node);
     }
 
@@ -530,7 +530,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @return Whether the addition was successful
      * @see TrunkPermissions#playerAddGroup(UUID, String) Redirects to this method by default
      */
-    public boolean playerAddGroup(Player player, String group) {
+    public boolean playerAddGroup(OfflinePlayer player, String group) {
         return playerAddGroup(player.getUniqueId(), group);
     }
 
@@ -579,7 +579,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @return Whether the addition was successful
      * @see TrunkPermissions#playerAddGroup(String, UUID, String) Redirects to this method by default
      */
-    public boolean playerAddGroup(String world, Player player, String group) {
+    public boolean playerAddGroup(String world, OfflinePlayer player, String group) {
         return playerAddGroup(world, player.getUniqueId(), group);
     }
 
@@ -591,7 +591,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @return Whether the addition was successful
      * @see TrunkPermissions#playerAddGroup(String, UUID, String) Redirects to this method by default
      */
-    public boolean playerAddGroup(World world, Player player, String group) {
+    public boolean playerAddGroup(World world, OfflinePlayer player, String group) {
         return playerAddGroup(world.getName(), player.getUniqueId(), group);
     }
 
@@ -624,7 +624,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @return Whether the removal was successful
      * @see TrunkPermissions#playerRemoveGroup(UUID, String) Redirects to this method by default
      */
-    public boolean playerRemoveGroup(Player player, String group) {
+    public boolean playerRemoveGroup(OfflinePlayer player, String group) {
         return playerRemoveGroup(player.getUniqueId(), group);
     }
 
@@ -670,7 +670,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @return Whether the removal was successful
      * @see TrunkPermissions#playerRemoveGroup(String, UUID, String) Redirects to this method by default
      */
-    public boolean playerRemoveGroup(String world, Player player, String group) {
+    public boolean playerRemoveGroup(String world, OfflinePlayer player, String group) {
         return playerRemoveGroup(world, player.getUniqueId(), group);
     }
 
@@ -682,7 +682,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @return Whether the removal was successful
      * @see TrunkPermissions#playerRemoveGroup(String, UUID, String) Redirects to this method by default
      */
-    public boolean playerRemoveGroup(World world, Player player, String group) {
+    public boolean playerRemoveGroup(World world, OfflinePlayer player, String group) {
         return playerRemoveGroup(world.getName(), player.getUniqueId(), group);
     }
 
@@ -715,7 +715,7 @@ public abstract class TrunkPermissions implements TrunkHook {
      * @return Whether the player is in the group
      * @see TrunkPermissions#playerInGroup(UUID, String) Redirects to this method by default
      */
-    public boolean playerInGroup(Player player, String group) {
+    public boolean playerInGroup(OfflinePlayer player, String group) {
         return playerInGroup(player.getUniqueId(), group);
     }
 
