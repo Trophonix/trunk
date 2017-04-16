@@ -106,6 +106,11 @@ public class Trunk extends JavaPlugin implements Listener {
         }
     }
 
+    /**
+     * Register a trunk economy
+     * @param hook The economy to register
+     * @throws HookRegisterException If the registration fails
+     */
     public void register(TrunkEconomy hook) throws HookRegisterException {
         if (registeredHooks.contains(hook)) throw new HookRegisterException("Attempted to register an already-registered hook!");
         for (TrunkHook hooks : registeredHooks) {
@@ -118,6 +123,11 @@ public class Trunk extends JavaPlugin implements Listener {
         getServer().getServicesManager().register(Economy.class, new VaultEconomyWrapper(hook), hook.getPlugin(), ServicePriority.High);
     }
 
+    /**
+     * Register trunk permissions
+     * @param hook The permissions to register
+     * @throws HookRegisterException If the registration fails
+     */
     public void register(TrunkPermissions hook) throws HookRegisterException {
         if (registeredHooks.contains(hook)) throw new HookRegisterException("Attempted to register an already-registered hook!");
         for (TrunkHook hooks : registeredHooks) {
@@ -130,6 +140,11 @@ public class Trunk extends JavaPlugin implements Listener {
         getServer().getServicesManager().register(Permission.class, new VaultPermissionWrapper(hook), hook.getPlugin(), ServicePriority.High);
     }
 
+    /**
+     * Register a trunk chat
+     * @param hook The chat to register
+     * @throws HookRegisterException If the registration fails
+     */
     public void register(TrunkChat hook) throws HookRegisterException {
         if (registeredHooks.contains(hook)) throw new HookRegisterException("Attempted to register an already-registered hook!");
         for (TrunkHook hooks : registeredHooks) {
@@ -149,7 +164,7 @@ public class Trunk extends JavaPlugin implements Listener {
         }
         Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Vault wrapped registered: " + registered);
         if (!registered) {
-            TrunkPermissions perms = getHook(TrunkPermissions.class);
+            TrunkPermissions perms = getAPI(TrunkPermissions.class);
             if (perms != null) getServer().getServicesManager().register(Chat.class, new VaultChatWrapper(new VaultPermissionWrapper(perms), hook), hook.getPlugin(), ServicePriority.High);
         }
     }
@@ -162,7 +177,13 @@ public class Trunk extends JavaPlugin implements Listener {
         for (TrunkHook registeredHook : registeredHooks) unregister(registeredHook);
     }
 
-    public <T extends TrunkHook> T getHook(Class<? extends TrunkHook> clazz) {
+    /**
+     * Get an API of a type
+     * @param clazz The class of the type API
+     * @param <T> The type of API
+     * @return The API of type or null if one is not found
+     */
+    public <T extends TrunkHook> T getAPI(Class<? extends TrunkHook> clazz) {
         for (TrunkHook hooks : registeredHooks) {
             if (hooks.getClass().getSuperclass().equals(clazz)) {
                 return (T) hooks;
