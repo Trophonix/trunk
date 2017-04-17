@@ -43,7 +43,7 @@ public class TrunkExample extends JavaPlugin implements Listener {
 
             // Get chat back from Trunk
             // Normally, this would be done in a separate plugin - one plugin sets it up, another uses it
-            chat = Trunk.getInstance().getHook(TrunkChat.class);
+            chat = Trunk.getInstance().getAPI(TrunkChat.class);
         } catch (HookRegisterException e) {
             e.printStackTrace();
             getServer().getPluginManager().disablePlugin(this);
