@@ -28,8 +28,11 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class Trunk extends JavaPlugin implements Listener {
 
+    private static Trunk instance;
+
     @Override
     public void onEnable() {
+        instance = this;
         getServer().getPluginManager().registerEvents(this, this);
     }
 
@@ -114,4 +117,7 @@ public class Trunk extends JavaPlugin implements Listener {
         }
     }
 
+    public static Trunk getInstance() {
+        return instance;
+    }
 }
