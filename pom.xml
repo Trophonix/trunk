@@ -49,7 +49,7 @@
         </dependency>
         <dependency>
             <groupId>com.trophonix</groupId>
-            <artifactId>trunkapi</artifactId>
+            <artifactId>TrunkAPI</artifactId>
             <version>1.0</version>
         </dependency>
     </dependencies>
