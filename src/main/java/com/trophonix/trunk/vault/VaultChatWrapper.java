@@ -16,6 +16,7 @@ import java.util.UUID;
 /**
  * Created by Lucas on 4/13/17.
  */
+@SuppressWarnings("deprecation")
 public class VaultChatWrapper extends Chat {
 
     private final TrunkChat wrapped;

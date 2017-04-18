@@ -14,11 +14,12 @@ import java.util.UUID;
 /**
  * Created by Lucas on 4/13/17.
  */
+@SuppressWarnings("deprecation")
 public class TrunkVaultChatWrapper extends TrunkChat {
 
     private final Chat wrapped;
 
-    private String world = Bukkit.getWorlds().get(0).getName();
+    private final String world = Bukkit.getWorlds().get(0).getName();
 
     public TrunkVaultChatWrapper(Plugin plugin, Chat chat) {
         super(plugin, Trunk.getInstance().getAPI(TrunkPermissions.class));

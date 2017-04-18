@@ -5,7 +5,6 @@ import com.trophonix.trunk.api.permissions.TrunkPermissions;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import java.util.Arrays;
@@ -14,11 +13,12 @@ import java.util.UUID;
 /**
  * Created by Lucas on 4/13/17.
  */
+@SuppressWarnings("deprecation")
 public class TrunkVaultPermissionsWrapper extends TrunkPermissions {
 
     private final Permission wrapped;
 
-    private String world = Bukkit.getWorlds().get(0).getName();
+    private final String world = Bukkit.getWorlds().get(0).getName();
 
     public TrunkVaultPermissionsWrapper(Plugin plugin, Permission wrapped) {
         super(plugin);

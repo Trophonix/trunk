@@ -11,6 +11,7 @@ import java.util.UUID;
 /**
  * Created by Lucas on 4/13/17.
  */
+@SuppressWarnings("deprecation")
 public class TrunkVaultEconomyWrapper extends TrunkEconomy {
 
     private final Economy wrapped;
