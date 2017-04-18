@@ -1,16 +1,15 @@
 package com.trophonix.trunk;
 
+import com.trophonix.trunk.api.TrunkAPI;
+import com.trophonix.trunk.api.UUIDStore;
 import com.trophonix.trunk.api.chat.TrunkChat;
-import com.trophonix.trunk.api.TrunkHook;
 import com.trophonix.trunk.api.economy.TrunkEconomy;
+import com.trophonix.trunk.api.exceptions.APIRegisterException;
 import com.trophonix.trunk.api.permissions.TrunkPermissions;
-import com.trophonix.trunk.api.vault.*;
-import com.trophonix.trunk.exceptions.HookRegisterException;
+import com.trophonix.trunk.vault.*;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
@@ -23,18 +22,12 @@ import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.ServicesManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * Created by Lucas on 4/12/17.
  */
-@SuppressWarnings("WeakerAccess")
 public class Trunk extends JavaPlugin implements Listener {
 
     private static Trunk instance;
-
-    private final Set<TrunkHook> registeredHooks = new HashSet<>();
 
     @Override
     public void onEnable() {
@@ -56,7 +49,7 @@ public class Trunk extends JavaPlugin implements Listener {
                 if (ecoRSP != null) {
                     Economy eco = ecoRSP.getProvider();
                     if (eco != null) {
-                        getLogger().info("Disabling Vault economy...");
+                        getLogger().info("Found Vault economy! Disabling...");
                         // Unregister vault economy
                         man.unregister(eco);
                         getLogger().info("Enabling Trunk economy wrapper...");
@@ -64,7 +57,8 @@ public class Trunk extends JavaPlugin implements Listener {
                         try {
                             register(new TrunkVaultEconomyWrapper(ecoRSP.getPlugin(), eco));
                             getLogger().info("Enabled Trunk economy wrapper successfully!");
-                        } catch (HookRegisterException ex) {
+                        } catch (APIRegisterException ex) {
+                            getLogger().info("Failed to register wrapper. Another economy api may already be registered.");
                         }
                     }
                 }
@@ -72,7 +66,7 @@ public class Trunk extends JavaPlugin implements Listener {
                 if (permRSP != null) {
                     Permission perm = permRSP.getProvider();
                     if (perm != null) {
-                        getLogger().info("Disabling Vault permissions...");
+                        getLogger().info("Found Vault permission! Disabling...");
                         // Unregister vault perms
                         man.unregister(perm);
                         // Register wrapper
@@ -80,7 +74,8 @@ public class Trunk extends JavaPlugin implements Listener {
                         try {
                             register(new TrunkVaultPermissionsWrapper(permRSP.getPlugin(), perm));
                             getLogger().info("Enabled Trunk permissions wrapper successfully!");
-                        } catch (HookRegisterException ex) {
+                        } catch (APIRegisterException ex) {
+                            getLogger().info("Failed to register wrapper. Another permissions api may already be registered.");
                         }
                     }
                 }
@@ -88,7 +83,7 @@ public class Trunk extends JavaPlugin implements Listener {
                 if (chatRSP != null) {
                     Chat chat = chatRSP.getProvider();
                     if (chat != null) {
-                        getLogger().info("Disabling Vault chat...");
+                        getLogger().info("Found Vault chat! Disabling...");
                         // Unregister vault chat
                         getLogger().info("Enabling Trunk chat wrapper...");
                         man.unregister(chat);
@@ -96,10 +91,12 @@ public class Trunk extends JavaPlugin implements Listener {
                         try {
                             register(new TrunkVaultChatWrapper(chatRSP.getPlugin(), chat));
                             getLogger().info("Enabled Trunk chat wrapper successfully!");
-                        } catch (HookRegisterException ex) {
+                        } catch (APIRegisterException ex) {
+                            getLogger().info("Failed to register wrapper. Another chat api may already be registered.");
                         }
                     }
                 }
+                getServer().getServicesManager().unregisterAll(event.getPlugin());
                 event.getPlugin().onDisable();
                 HandlerList.unregisterAll(event.getPlugin());
             }, 1L);
@@ -108,73 +105,67 @@ public class Trunk extends JavaPlugin implements Listener {
 
     /**
      * Register a trunk economy
-     * @param hook The economy to register
-     * @throws HookRegisterException If the registration fails
+     * @param api The economy to register
+     * @throws APIRegisterException If the registration fails
      */
-    public void register(TrunkEconomy hook) throws HookRegisterException {
-        if (registeredHooks.contains(hook)) throw new HookRegisterException("Attempted to register an already-registered hook!");
-        for (TrunkHook hooks : registeredHooks) {
-            if (hooks.getClass().getSuperclass().equals(hook.getClass().getSuperclass())) {
-                throw new HookRegisterException("Attempted to register a hook of a type which is already registered!");
-            }
+    public void register(TrunkEconomy api) throws APIRegisterException {
+        if (getAPI(TrunkEconomy.class) != null) {
+            throw new APIRegisterException("Attempted to register a api of a type which is already registered!");
         }
-        registeredHooks.add(hook);
-        // Register vault wrapper
-        getServer().getServicesManager().register(Economy.class, new VaultEconomyWrapper(hook), hook.getPlugin(), ServicePriority.High);
+        // Register Trunk economy service
+        getServer().getServicesManager().register(TrunkEconomy.class, api, api.getPlugin(), ServicePriority.Highest);
+        // Register Vault wrapper service
+        getServer().getServicesManager().register(Economy.class, new VaultEconomyWrapper(api), this, ServicePriority.Highest);
     }
 
     /**
      * Register trunk permissions
-     * @param hook The permissions to register
-     * @throws HookRegisterException If the registration fails
+     * @param api The permissions to register
+     * @throws APIRegisterException If the registration fails
      */
-    public void register(TrunkPermissions hook) throws HookRegisterException {
-        if (registeredHooks.contains(hook)) throw new HookRegisterException("Attempted to register an already-registered hook!");
-        for (TrunkHook hooks : registeredHooks) {
-            if (hooks.getClass().getSuperclass().equals(hook.getClass().getSuperclass())) {
-                throw new HookRegisterException("Attempted to register a hook of a type which is already registered!");
-            }
+    public void register(TrunkPermissions api) throws APIRegisterException {
+        if (getAPI(TrunkPermissions.class) != null) {
+            throw new APIRegisterException("Attempted to register a api of a type which is already registered!");
         }
-        registeredHooks.add(hook);
-        // Register vault wrapper
-        getServer().getServicesManager().register(Permission.class, new VaultPermissionWrapper(hook), hook.getPlugin(), ServicePriority.High);
+        // Register Trunk permissions service
+        getServer().getServicesManager().register(TrunkPermissions.class, api, api.getPlugin(), ServicePriority.Highest);
+        // Register Vault wrapper service
+        getServer().getServicesManager().register(Permission.class, new VaultPermissionWrapper(api), this, ServicePriority.Highest);
     }
 
     /**
      * Register a trunk chat
-     * @param hook The chat to register
-     * @throws HookRegisterException If the registration fails
+     * @param api The chat to register
+     * @throws APIRegisterException If the registration fails
      */
-    public void register(TrunkChat hook) throws HookRegisterException {
-        if (registeredHooks.contains(hook)) throw new HookRegisterException("Attempted to register an already-registered hook!");
-        for (TrunkHook hooks : registeredHooks) {
-            if (hooks.getClass().getSuperclass().equals(hook.getClass().getSuperclass())) {
-                throw new HookRegisterException("Attempted to register a hook of a type which is already registered!");
-            }
+    public void register(TrunkChat api) throws APIRegisterException {
+        if (getAPI(TrunkChat.class) != null) {
+            throw new APIRegisterException("Attempted to register a api of a type which is already registered!");
         }
-        registeredHooks.add(hook);
-        boolean registered = false;
+        // Register Trunk chat service
+        getServer().getServicesManager().register(TrunkChat.class, api, api.getPlugin(), ServicePriority.Highest);
+        // Find Vault permissions
         RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
-        if (rsp != null) {
-            Permission perm = rsp.getProvider();
-            if (perm != null) {
-                getServer().getServicesManager().register(Chat.class, new VaultChatWrapper(perm, hook), hook.getPlugin(), ServicePriority.High);
-                registered = true;
-            }
-        }
-        Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Vault wrapped registered: " + registered);
-        if (!registered) {
-            TrunkPermissions perms = getAPI(TrunkPermissions.class);
-            if (perms != null) getServer().getServicesManager().register(Chat.class, new VaultChatWrapper(new VaultPermissionWrapper(perms), hook), hook.getPlugin(), ServicePriority.High);
+        if (rsp != null && rsp.getProvider() != null) {
+            // Register Vault wrapper service
+            getServer().getServicesManager().register(Chat.class, new VaultChatWrapper(rsp.getProvider(), api), this, ServicePriority.Highest);
         }
     }
 
-    public void unregister(TrunkHook hook) {
-        registeredHooks.remove(hook);
+    /**
+     * Unregister an API
+     * @param api The api
+     */
+    public void unregister(TrunkAPI api) {
+        getServer().getServicesManager().unregister(api);
     }
 
+    /**
+     * Unregister all APIs registered by a plugin
+     * @param plugin The plugin
+     */
     public void unregisterAll(Plugin plugin) {
-        for (TrunkHook registeredHook : registeredHooks) unregister(registeredHook);
+        getServer().getServicesManager().unregisterAll(plugin);
     }
 
     /**
@@ -183,11 +174,10 @@ public class Trunk extends JavaPlugin implements Listener {
      * @param <T> The type of API
      * @return The API of type or null if one is not found
      */
-    public <T extends TrunkHook> T getAPI(Class<? extends TrunkHook> clazz) {
-        for (TrunkHook hooks : registeredHooks) {
-            if (hooks.getClass().getSuperclass().equals(clazz)) {
-                return (T) hooks;
-            }
+    public <T extends TrunkAPI> T getAPI(Class<T> clazz) {
+        RegisteredServiceProvider<T> rsp = getServer().getServicesManager().getRegistration(clazz);
+        if (rsp != null) {
+            return rsp.getProvider();
         }
         return null;
     }

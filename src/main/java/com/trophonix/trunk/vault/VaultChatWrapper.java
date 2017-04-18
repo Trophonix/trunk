@@ -1,10 +1,10 @@
-package com.trophonix.trunk.api.vault;
+package com.trophonix.trunk.vault;
 
 import com.google.common.collect.Iterables;
 import com.trophonix.trunk.Trunk;
-import com.trophonix.trunk.UUIDStore;
+import com.trophonix.trunk.api.UUIDStore;
 import com.trophonix.trunk.api.chat.TrunkChat;
-import com.trophonix.trunk.exceptions.UnknownPlayerException;
+import com.trophonix.trunk.api.exceptions.UnknownPlayerException;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.OfflinePlayer;

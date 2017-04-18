@@ -1,6 +1,6 @@
-package com.trophonix.trunk.api.vault;
+package com.trophonix.trunk.vault;
 
-import com.trophonix.trunk.UUIDStore;
+import com.trophonix.trunk.api.UUIDStore;
 import com.trophonix.trunk.api.permissions.TrunkPermissions;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
@@ -23,11 +23,6 @@ public class TrunkVaultPermissionsWrapper extends TrunkPermissions {
     public TrunkVaultPermissionsWrapper(Plugin plugin, Permission wrapped) {
         super(plugin);
         this.wrapped = wrapped;
-    }
-
-    @Override
-    public boolean has(Player player, String node) {
-        return wrapped.has(player, node);
     }
 
     @Override

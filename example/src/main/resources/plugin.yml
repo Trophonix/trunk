@@ -1,8 +1,0 @@
-name: TrunkExample
-version: 1.0
-author: Trophonix
-main: com.trophonix.trunkexample.TrunkExample
-depend: [Trunk]
-commands:
-  prefix:
-    description: "Set a player's prefix"

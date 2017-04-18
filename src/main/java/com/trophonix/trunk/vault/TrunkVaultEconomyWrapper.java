@@ -1,6 +1,6 @@
-package com.trophonix.trunk.api.vault;
+package com.trophonix.trunk.vault;
 
-import com.trophonix.trunk.UUIDStore;
+import com.trophonix.trunk.api.UUIDStore;
 import com.trophonix.trunk.api.economy.EconomyResponse;
 import com.trophonix.trunk.api.economy.TrunkEconomy;
 import net.milkbowl.vault.economy.Economy;

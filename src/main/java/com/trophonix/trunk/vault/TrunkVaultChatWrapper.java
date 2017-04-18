@@ -1,7 +1,9 @@
-package com.trophonix.trunk.api.vault;
+package com.trophonix.trunk.vault;
 
-import com.trophonix.trunk.UUIDStore;
+import com.trophonix.trunk.Trunk;
+import com.trophonix.trunk.api.UUIDStore;
 import com.trophonix.trunk.api.chat.TrunkChat;
+import com.trophonix.trunk.api.permissions.TrunkPermissions;
 import net.milkbowl.vault.chat.Chat;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
@@ -19,7 +21,7 @@ public class TrunkVaultChatWrapper extends TrunkChat {
     private String world = Bukkit.getWorlds().get(0).getName();
 
     public TrunkVaultChatWrapper(Plugin plugin, Chat chat) {
-        super(plugin);
+        super(plugin, Trunk.getInstance().getAPI(TrunkPermissions.class));
         this.wrapped = chat;
     }
 
