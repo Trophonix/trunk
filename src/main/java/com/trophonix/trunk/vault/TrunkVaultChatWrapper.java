@@ -20,7 +20,7 @@ public class TrunkVaultChatWrapper extends TrunkChat {
 
     private final Chat wrapped;
 
-    private final String world = Bukkit.getWorlds().get(0).getName();
+    private final String world = "world";
 
     public TrunkVaultChatWrapper(Plugin plugin, Chat chat) {
         super(plugin, TrunkAPI.getAPI(TrunkPermissions.class));

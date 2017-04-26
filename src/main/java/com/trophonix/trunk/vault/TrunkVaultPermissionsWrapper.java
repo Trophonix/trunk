@@ -18,7 +18,7 @@ public class TrunkVaultPermissionsWrapper extends TrunkPermissions {
 
     private final Permission wrapped;
 
-    private final String world = Bukkit.getWorlds().get(0).getName();
+    private final String world = "world";
 
     public TrunkVaultPermissionsWrapper(Plugin plugin, Permission wrapped) {
         super(plugin);

@@ -3,3 +3,4 @@ version: 1.0
 author: Trophonix
 main: com.trophonix.trunk.Trunk
 loadbefore: [Vault]
+load: STARTUP

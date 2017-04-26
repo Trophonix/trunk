@@ -11,12 +11,16 @@ import com.trophonix.trunk.vault.*;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.server.PluginEnableEvent;
+import org.bukkit.event.server.ServiceRegisterEvent;
+import org.bukkit.event.server.ServiceUnregisterEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.ServicePriority;
@@ -56,64 +60,62 @@ public class Trunk extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onLoad(PluginEnableEvent event) {
-        if (event.getPlugin().getName().equals("Vault")) {
-            getServer().getScheduler().runTaskLater(this, () -> {
-                ServicesManager man = getServer().getServicesManager();
-                RegisteredServiceProvider<Economy> ecoRSP = man.getRegistration(Economy.class);
-                if (ecoRSP != null) {
-                    Economy eco = ecoRSP.getProvider();
-                    if (eco != null) {
-                        getLogger().info("Found Vault economy! Disabling...");
-                        // Unregister vault economy
-                        man.unregister(eco);
-                        getLogger().info("Enabling Trunk economy wrapper...");
-                        // Register wrapper
-                        try {
-                            TrunkAPI.register(new TrunkVaultEconomyWrapper(ecoRSP.getPlugin(), eco));
-                            getLogger().info("Enabled Trunk economy wrapper successfully!");
-                        } catch (APIRegisterException ex) {
-                            getLogger().info("Failed to register wrapper. Another economy api may already be registered.");
-                        }
+        if (event.getPlugin().getName().equalsIgnoreCase("vault")) {
+            ServicesManager man = getServer().getServicesManager();
+            RegisteredServiceProvider<Economy> ecoRSP = man.getRegistration(Economy.class);
+            if (ecoRSP != null) {
+                Economy eco = ecoRSP.getProvider();
+                if (eco != null) {
+                    getLogger().info("Found Vault economy! Disabling...");
+                    // Unregister vault economy
+                    man.unregister(eco);
+                    getLogger().info("Enabling Trunk economy wrapper...");
+                    // Register wrapper
+                    try {
+                        TrunkAPI.register(new TrunkVaultEconomyWrapper(this, eco));
+                        getLogger().info("Enabled Trunk economy wrapper successfully!");
+                    } catch (APIRegisterException ex) {
+                        getLogger().info("Failed to register wrapper. Another economy api may already be registered.");
                     }
                 }
-                RegisteredServiceProvider<Permission> permRSP = man.getRegistration(Permission.class);
-                if (permRSP != null) {
-                    Permission perm = permRSP.getProvider();
-                    if (perm != null) {
-                        getLogger().info("Found Vault permission! Disabling...");
-                        // Unregister vault perms
-                        man.unregister(perm);
-                        // Register wrapper
-                        getLogger().info("Enabling Trunk permissions wrapper...");
-                        try {
-                            TrunkAPI.register(new TrunkVaultPermissionsWrapper(permRSP.getPlugin(), perm));
-                            getLogger().info("Enabled Trunk permissions wrapper successfully!");
-                        } catch (APIRegisterException ex) {
-                            getLogger().info("Failed to register wrapper. Another permissions api may already be registered.");
-                        }
+            }
+            RegisteredServiceProvider<Permission> permRSP = man.getRegistration(Permission.class);
+            if (permRSP != null) {
+                Permission perm = permRSP.getProvider();
+                if (perm != null) {
+                    getLogger().info("Found Vault permission! Disabling...");
+                    // Unregister vault perms
+                    man.unregister(perm);
+                    // Register wrapper
+                    getLogger().info("Enabling Trunk permissions wrapper...");
+                    try {
+                        TrunkAPI.register(new TrunkVaultPermissionsWrapper(this, perm));
+                        getLogger().info("Enabled Trunk permissions wrapper successfully!");
+                    } catch (APIRegisterException ex) {
+                        getLogger().info("Failed to register wrapper. Another permissions api may already be registered.");
                     }
                 }
-                RegisteredServiceProvider<Chat> chatRSP = man.getRegistration(Chat.class);
-                if (chatRSP != null) {
-                    Chat chat = chatRSP.getProvider();
-                    if (chat != null) {
-                        getLogger().info("Found Vault chat! Disabling...");
-                        // Unregister vault chat
-                        getLogger().info("Enabling Trunk chat wrapper...");
-                        man.unregister(chat);
-                        // Register wrapper
-                        try {
-                            TrunkAPI.register(new TrunkVaultChatWrapper(chatRSP.getPlugin(), chat));
-                            getLogger().info("Enabled Trunk chat wrapper successfully!");
-                        } catch (APIRegisterException ex) {
-                            getLogger().info("Failed to register wrapper. Another chat api may already be registered.");
-                        }
+            }
+            RegisteredServiceProvider<Chat> chatRSP = man.getRegistration(Chat.class);
+            if (chatRSP != null) {
+                Chat chat = chatRSP.getProvider();
+                if (chat != null) {
+                    getLogger().info("Found Vault chat! Disabling...");
+                    // Unregister vault chat
+                    getLogger().info("Enabling Trunk chat wrapper...");
+                    man.unregister(chat);
+                    // Register wrapper
+                    try {
+                        TrunkAPI.register(new TrunkVaultChatWrapper(this, chat));
+                        getLogger().info("Enabled Trunk chat wrapper successfully!");
+                    } catch (APIRegisterException ex) {
+                        getLogger().info("Failed to register wrapper. Another chat api may already be registered.");
                     }
                 }
-                getServer().getServicesManager().unregisterAll(event.getPlugin());
-                event.getPlugin().onDisable();
-                HandlerList.unregisterAll(event.getPlugin());
-            }, 1L);
+            }
+            getServer().getServicesManager().unregisterAll(event.getPlugin());
+            event.getPlugin().onDisable();
+            HandlerList.unregisterAll(event.getPlugin());
         }
     }
 
